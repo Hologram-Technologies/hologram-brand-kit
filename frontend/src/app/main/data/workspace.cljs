@@ -1555,6 +1555,7 @@
 (dm/export dwt/update-dimensions-coalesced)
 (dm/export dwt/change-orientation)
 (dm/export dwt/start-rotate)
+(dm/export dwt/start-move-line-point)
 (dm/export dwt/increase-rotation)
 (dm/export dwt/increase-rotation-coalesced)
 (dm/export dwt/start-move-selected)
