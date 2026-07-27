@@ -426,11 +426,6 @@
 }
 
 .library-resolution-message {
-  // TODO: Typography does not match any existing DS typography token.
-  font-family: "worksans", "vazirmatn", sans-serif;
-  font-size: px2rem(12);
-  font-weight: 400;
-  line-height: 1.4;
   color: var(--color-foreground-secondary);
   margin-block-end: var(--sp-s);
 }

@@ -26,10 +26,10 @@
    [app.main.ui.ds.foundations.typography :as t]
    [app.main.ui.ds.foundations.typography.heading :refer [heading*]]
    [app.main.ui.ds.foundations.typography.text :refer [text*]]
-   [app.main.ui.ds.product.loader :refer [loader*]]
-   [app.main.ui.icons :as deprecated-icon]
-   [app.main.ui.notifications.context-notification :refer [context-notification]]
    [app.main.ui.ds.notifications.context-notification :refer [context-notification*]]
+   [app.main.ui.ds.product.loader :refer [loader*]]
+   [app.main.ui.hooks :as hooks]
+   [app.main.ui.icons :as deprecated-icon]
    [app.main.worker :as mw]
    [app.util.dom :as dom]
    [app.util.i18n :as i18n :refer [tr]]
@@ -224,13 +224,13 @@
         ;; FIXME: rename to format
         format          (:type entry)
 
-        loading?        false #_(or (= :analyze status)
+        loading?        (or (= :analyze status)
                             (= :import-progress status)
                             (and is-progress (= :import-ready status)))
-        analyze-error?  true #_(= :analyze-error status)
-        import-success? false #_(= :import-success status)
-        import-error?   false #_(= :import-error status)
-        import-ready?   false #_(= :import-ready status)
+        analyze-error?  (= :analyze-error status)
+        import-success? (= :import-success status)
+        import-error?   (= :import-error status)
+        import-ready?   (= :import-ready status)
 
         level (cond
                 import-success? :success
@@ -319,19 +319,20 @@
              (when ^boolean is-shared?
                [:> icon* {:icon-id i/library :class (stl/css :icon)}])]])])
 
-      [:div {:class (stl/css :edit-entry-buttons)}
-       (when ^boolean editable?
-         [:> icon-button* {:on-click on-edit'
-                           :variant "ghost"
-                           :icon-size "s"
-                           :aria-label (tr "labels.edit")
-                           :icon i/curve}])
-       (when ^boolean can-be-deleted
-         [:> icon-button* {:on-click on-delete'
-                           :variant "ghost"
-                           :icon-size "s"
-                           :aria-label (tr "labels.delete")
-                           :icon i/delete}])]]
+      (when ^boolean (or editable? can-be-deleted)
+        [:div {:class (stl/css :edit-entry-buttons)}
+         (when ^boolean editable?
+           [:> icon-button* {:on-click on-edit'
+                             :variant "ghost"
+                             :icon-size "s"
+                             :aria-label (tr "labels.edit")
+                             :icon i/curve}])
+         (when ^boolean can-be-deleted
+           [:> icon-button* {:on-click on-delete'
+                             :variant "ghost"
+                             :icon-size "s"
+                             :aria-label (tr "labels.delete")
+                             :icon i/delete}])])]
      (cond
        analyze-error?
        [:> text* {:class (stl/css :error-message)
@@ -401,8 +402,10 @@
             (on-select id (:id first-c))))))
 
     [:div {:class (stl/css :library-resolution)}
-     [:p {:class (stl/css :library-resolution-message)}
-      (tr "dashboard.import.resolve-libraries")]
+     [:> text* {:class (stl/css :library-resolution-message)
+                :as "p"
+                :typography t/body-large}
+      "Some libraries couldn't be linked automatically. Select the correct library for each:"]
 
      (for [{:keys [id name candidates]} candidates]
        (let [options  (mapv (fn [c]
@@ -415,7 +418,9 @@
           [:div {:class (stl/css :library-resolution-item-name)}
            name]
           [:> select* {:options options
+                       :class (stl/css :library-resolution-select)
                        :default-selected (or (some-> selected str) "")
+                       :has-portal true
                        :on-change (partial on-select id)}]]))]))
 
 (mf/defc library-resolution-summary-file*
@@ -735,26 +740,26 @@
       [:div {:class (stl/css :modal-content)}
        (cond
          (and (= :analyze status) errors?)
-         [:& context-notification
+         [:> context-notification*
           {:level :warning
-           :class (stl/css :context-notification-error)
-           :content (tr "dashboard.import.import-warning")}]
+           :class (stl/css :context-notification-error)}
+          (tr "dashboard.import.import-warning")]
 
          (= :import-success status)
          [:*
-          [:& context-notification
-           {:level (if (zero? import-success-total) :warning :success)
-            :content (tr "dashboard.import.import-message" (i18n/c import-success-total))}]
+          [:> context-notification*
+           {:level (if (zero? import-success-total) :warning :success)}
+           (tr "dashboard.import.import-message" (i18n/c import-success-total))]
           (when (pos? auto-linked-count)
-            [:& context-notification
-             {:level :success
-              :content (tr "dashboard.import.auto-linked-libraries" (i18n/c auto-linked-count))}])]
+            [:> context-notification*
+             {:level :success}
+             (tr "dashboard.import.auto-linked-libraries" (i18n/c auto-linked-count))])]
 
          (= :import-error status)
-         [:& context-notification
+         [:> context-notification*
           {:level :error
-           :class (stl/css :context-notification-error)
-           :content (tr "dashboard.import.import-error.disclaimer")}]
+           :class (stl/css :context-notification-error)}
+          (tr "dashboard.import.import-error.disclaimer")]
 
          ;; :resolution — wizard step (current derived file)
          (= :library-resolution status)
