@@ -35,66 +35,10 @@
   border: $b-2 solid var(--color-background-quaternary);
   min-block-size: $sz-192;
   inline-size: $sz-512;
-  max-block-size: calc(10 * px2rem(80));
+  max-block-size: px2rem(800);
 }
 
 .modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-l);
-  margin-block-end: var(--sp-xxl);
-}
-
-.modal-title {
-  color: var(--color-foreground-primary);
-}
-
-.modal-close-btn {
-  // %button-tertiary essentials
-  border-radius: $br-8;
-  background-color: transparent;
-  border: $b-2 solid transparent;
-  color: var(--button-tertiary-foreground-color-rest);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  inset-block-start: var(--sp-s);
-  inset-inline-end: px2rem(6);
-  block-size: $sz-32;
-  inline-size: $sz-28;
-
-  svg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    block-size: $sz-16;
-    inline-size: $sz-16;
-    color: transparent;
-    fill: none;
-    stroke-width: 1px;
-    stroke: var(--button-tertiary-foreground-color-rest);
-  }
-
-  &:hover {
-    background-color: var(--button-tertiary-background-color-hover);
-    color: var(--button-tertiary-foreground-color-hover);
-    border-color: var(--button-secondary-border-color-hover);
-
-    svg {
-      stroke: var(--button-tertiary-foreground-color-hover);
-    }
-  }
-}
-
-.modal-content {
-  // TODO: Typography does not match any existing DS typography token.
-  // body-small-typography: line-height 1.4 (DS body-small has line-height 1.3)
-  font-family: "worksans", "vazirmatn", sans-serif;
-  font-size: px2rem(12);
-  font-weight: 400;
-  line-height: 1.4;
   flex: 1;
   overflow: hidden auto;
   display: grid;
@@ -104,13 +48,19 @@
   min-block-size: px2rem(40);
 }
 
+.modal-title {
+  color: var(--color-foreground-primary);
+}
+
+.modal-close-btn {
+  position: absolute;
+  inset-block-start: var(--sp-s);
+  inset-inline-end: px2rem(6);
+}
+
 .status-message {
-  // TODO: Typography does not match any existing DS typography token.
-  // body-small-typography: line-height 1.4 (DS body-small has line-height 1.3)
-  font-family: "worksans", "vazirmatn", sans-serif;
-  font-size: px2rem(12);
-  font-weight: 400;
-  line-height: 1.4;
+  @include use-typography("body-small");
+
   color: var(--color-foreground-primary);
   font-style: italic;
 }
@@ -121,162 +71,12 @@
   gap: var(--sp-l);
 }
 
-.cancel-button {
-  // %modal-cancel-btn essentials (these are <input type=button> elements)
-  border-radius: $br-8;
-  background-color: var(--button-secondary-background-color-rest);
-  border: $b-1 solid var(--button-secondary-border-color-rest);
-  color: var(--button-secondary-foreground-color-rest);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--sp-s) var(--sp-xxl);
-  block-size: $sz-32;
-  margin: 0;
-  cursor: pointer;
-
-  // TODO: Typography does not match any existing DS typography token.
-  // uppercase-title-typography: 11px, weight 500, line-height 1.2, uppercase
-  font-family: "worksans", "vazirmatn", sans-serif;
-  font-size: px2rem(11);
-  font-weight: 500;
-  line-height: 1.2;
-  text-transform: uppercase;
-
-  &:hover {
-    background-color: var(--button-secondary-background-color-hover);
-    border-color: var(--button-secondary-border-color-hover);
-    color: var(--button-secondary-foreground-color-hover);
-  }
-
-  &:active {
-    background-color: var(--button-secondary-background-color-active);
-    border-color: var(--button-secondary-border-color-active);
-    color: var(--button-secondary-foreground-color-active);
-  }
-
-  &[disabled],
-  &:disabled {
-    background-color: var(--button-background-color-disabled);
-    border-color: var(--button-border-color-disabled);
-    color: var(--button-foreground-color-disabled);
-    cursor: unset;
-  }
-}
-
-.accept-btn {
-  // %modal-accept-btn essentials
-  border-radius: $br-8;
-  background-color: var(--button-primary-background-color-rest);
-  border: $b-1 solid var(--button-primary-border-color-rest);
-  color: var(--button-primary-foreground-color-rest);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--sp-s) var(--sp-xxl);
-  block-size: $sz-32;
-  margin: 0;
-  cursor: pointer;
-
-  // TODO: Typography does not match any existing DS typography token.
-  // uppercase-title-typography: 11px, weight 500, line-height 1.2, uppercase
-  font-family: "worksans", "vazirmatn", sans-serif;
-  font-size: px2rem(11);
-  font-weight: 500;
-  line-height: 1.2;
-  text-transform: uppercase;
-
-  &:hover {
-    background-color: var(--button-primary-background-color-hover);
-    border-color: var(--button-primary-border-color-hover);
-    color: var(--button-primary-foreground-color-hover);
-  }
-
-  &:active {
-    background-color: var(--button-primary-background-color-active);
-    border-color: var(--button-primary-border-color-active);
-    color: var(--button-primary-foreground-color-active);
-  }
-
-  &[disabled],
-  &:disabled {
-    background-color: var(--button-background-color-disabled);
-    border-color: var(--button-border-color-disabled);
-    color: var(--button-foreground-color-disabled);
-    cursor: unset;
-  }
-
-  &.danger {
-    background-color: var(--modal-button-background-color-error);
-    border-color: var(--modal-button-background-color-error);
-    color: var(--modal-button-foreground-color-error);
-  }
-}
-
-// TODO: Verify before removal. These selectors appear to be unused.
-// .modal-scd-msg,
-// .modal-subtitle,
-// .modal-msg {
-//   ...
-// }
-
 .file-entry {
   --file-entry-fg-color: var(--color-foreground-secondary);
 
   display: flex;
   flex-direction: column;
   gap: var(--sp-m);
-
-  .error-message,
-  .progress-message {
-    display: flex;
-    align-items: center;
-    min-block-size: $sz-32;
-    color: var(--file-entry-fg-color);
-  }
-
-  .error-message {
-    align-items: flex-start;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-  }
-
-  .linked-library {
-    display: flex;
-    align-items: center;
-    gap: var(--sp-m);
-    color: var(--file-entry-fg-color);
-
-    .linked-library-tag {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      block-size: $sz-24;
-      inline-size: $sz-24;
-
-      svg {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        block-size: $sz-16;
-        inline-size: $sz-16;
-        color: transparent;
-        fill: none;
-        stroke-width: 1px;
-        stroke: var(--file-entry-fg-color);
-      }
-
-      &.error {
-        svg {
-          stroke: var(--element-foreground-error);
-        }
-      }
-    }
-  }
-
-  &.warning {
-    --file-entry-fg-color: var(--color-accent-warning);
-  }
 
   &.success {
     --file-entry-fg-color: var(--color-accent-sucess);
@@ -291,6 +91,53 @@
   }
 }
 
+.error-message,
+.progress-message {
+  display: flex;
+  align-items: center;
+  min-block-size: $sz-32;
+  color: var(--file-entry-fg-color);
+}
+
+.error-message {
+  align-items: flex-start;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.linked-library {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-m);
+  color: var(--file-entry-fg-color);
+}
+
+.linked-library-tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  block-size: $sz-24;
+  inline-size: $sz-24;
+
+  svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    block-size: $sz-16;
+    inline-size: $sz-16;
+    color: transparent;
+    fill: none;
+    stroke-width: 1px;
+    stroke: var(--file-entry-fg-color);
+  }
+
+  &.error {
+    svg {
+      stroke: var(--element-foreground-error);
+    }
+  }
+}
+
 .file-name {
   display: flex;
   align-items: center;
@@ -298,24 +145,11 @@
   color: var(--file-entry-fg-color);
 }
 
-  .edit-entry-buttons {
-    display: flex;
-    align-items: center;
-    gap: var(--sp-xs);
-
-    // button {
-    //   display: flex;
-    //   justify-content: center;
-    //   align-items: center;
-    //   border-radius: $br-8;
-    //   background-color: transparent;
-    //   border: $b-2 solid transparent;
-    //   inline-size: $sz-28;
-    //   block-size: $sz-32;
-    //   cursor: pointer;
-    //   color: var(--button-tertiary-foreground-color-rest);
-    // }
-  }
+.edit-entry-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+}
 
 .file-name-edit {
   display: flex;
@@ -329,24 +163,21 @@
   background-color: var(--color-background-tertiary);
 }
 
-
 .file-name-label {
   display: flex;
   align-items: center;
   gap: var(--sp-m);
   flex-grow: 1;
-
-  .icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    block-size: $sz-16;
-    inline-size: $sz-16;
-    color: var(--file-entry-fg-color);
-  }
 }
 
-
+.file-label-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  block-size: $sz-16;
+  inline-size: $sz-16;
+  color: var(--file-entry-fg-color);
+}
 
 .file-name-input {
   @include use-typography("body-medium");
@@ -369,25 +200,6 @@
 
     outline: none;
   }
-}
-
-
-.file-icon,
-.file-svg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  block-size: $sz-24;
-  inline-size: $sz-16;
-  color: var(--file-entry-fg-color);
-}
-
-.file-svg {
-  fill: var(--file-entry-fg-color);
-}
-
-.context-notification-error {
-  --context-notification-bg-color: var(--color-background-primary);
 }
 
 .file-name-notification {
@@ -419,6 +231,10 @@
   overflow-wrap: anywhere;
 }
 
+// ################################
+//     LIBRARY RESOLUTION
+// ################################
+
 .library-resolution {
   display: flex;
   flex-direction: column;
@@ -430,48 +246,94 @@
   margin-block-end: var(--sp-s);
 }
 
+.library-resolution-header {
+  @include use-typography("body-medium");
+
+  color: var(--color-foreground-secondary);
+  display: grid;
+  grid-template-columns: 1fr 32px 1fr;
+  border-block-end: $b-1 solid var(--color-foreground-secondary);
+}
+
+.library-origin-name,
+.library-resolution-connection {
+  block-size: $sz-32;
+  text-align: start;
+  color: var(--color-foreground-primary);
+  display: flex;
+  align-items: center;
+}
+
 .library-resolution-item {
+  display: grid;
+  grid-template-columns: 1fr 32px 1fr;
+  block-size: $sz-32;
+  margin-block: var(--sp-s);
+}
+
+.library-resolution-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-inline-end: var(--sp-s);
+  color: var(--color-foreground-secondary);
+}
+
+.library-resolution-arrow {
+  color: var(--color-foreground-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-block-size: $sz-32;
+}
+
+.library-resolution-body {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-xs);
-  padding: var(--sp-s) 0;
+  gap: var(--sp-s);
 }
 
 .library-resolution-item-name {
-  // TODO: Typography does not match any existing DS typography token.
-  font-family: "worksans", "vazirmatn", sans-serif;
-  font-size: px2rem(12);
-  line-height: 1.4;
-  color: var(--color-foreground-primary);
-  font-weight: 700;
-}
+  @include use-typography("body-medium");
 
-.library-resolution-summary-file {
-  margin-block-end: var(--sp-l);
-  padding-block-end: var(--sp-m);
-  border-bottom: $b-1 solid var(--color-foreground-secondary);
-}
-
-.library-resolution-linked {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-s);
   color: var(--color-foreground-secondary);
-  font-size: px2rem(12);
+  padding-inline-start: var(--sp-s);
 }
 
-.library-resolution-project {
+.library-resolution-no-selection {
+  display: flex;
+  align-items: center;
   color: var(--color-foreground-secondary);
-  font-size: px2rem(12);
-  margin-block-end: var(--sp-s);
+  padding: var(--sp-s);
+  margin-inline-start: var(--sp-xxs);
+  block-size: $sz-32;
 }
 
-// Summary file card
+// ################################
+//        Summary file card
+// ################################
+
 .summary-file {
   display: flex;
   flex-direction: column;
   gap: var(--sp-s);
   padding: var(--sp-m);
-  border: $b-1 solid var(--color-background-quaternary);
   border-radius: $br-8;
   background: var(--color-background-primary);
+}
+
+.summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xxs);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-inline-start: $b-1 solid var(--color-background-quaternary);
 }
 
 .summary-file-header {
@@ -488,10 +350,7 @@
 }
 
 .summary-file-name {
-  @include use-typography("body-medium");
-
   color: var(--color-foreground-primary);
-  font-weight: 700;
 }
 
 // Section within a file (auto-linked or user selection)
@@ -509,20 +368,6 @@
   padding: var(--sp-xs) 0;
 }
 
-.summary-section-icon {
-  color: var(--color-foreground-secondary);
-  flex-shrink: 0;
-}
-
-.summary-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-xxs);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
 .summary-list-item {
   display: flex;
   align-items: center;
@@ -537,12 +382,18 @@
 }
 
 .summary-item-name {
-  // TODO: Typography does not match any existing DS typography token.
-  font-family: "worksans", "vazirmatn", sans-serif;
-  font-size: px2rem(12);
-  font-weight: 400;
-  line-height: 1.4;
   color: var(--color-foreground-primary);
+  flex: 1;
+  min-inline-size: 0;
+  display: block;
+  max-inline-size: 99%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary-item-name-header {
+  color: var(--color-foreground-secondary);
   flex: 1;
   min-inline-size: 0;
   display: block;

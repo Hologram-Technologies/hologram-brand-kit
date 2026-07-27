@@ -20,6 +20,7 @@
    [app.main.ui.components.file-uploader :refer [file-uploader]]
    [app.main.ui.ds.buttons.button :refer [button*]]
    [app.main.ui.ds.buttons.icon-button :refer [icon-button*]]
+   [app.main.ui.ds.controls.checkbox :refer [checkbox*]]
    [app.main.ui.ds.controls.select :refer [select*]]
    [app.main.ui.ds.foundations.assets.icon :as i :refer [icon*]]
    [app.main.ui.ds.foundations.assets.raw-svg :as rsvg :refer [raw-svg*]]
@@ -307,7 +308,7 @@
                       :typography t/body-medium}
             (:name entry)
             (when ^boolean is-shared?
-              [:> icon* {:icon-id i/library :class (stl/css :icon)}])]
+              [:> icon* {:icon-id i/library :class (stl/css :file-label-icon)}])]
            [:> context-notification*
             {:level level
              :appearance :ghost
@@ -317,7 +318,7 @@
                        :typography t/body-medium}
              (:name entry)
              (when ^boolean is-shared?
-               [:> icon* {:icon-id i/library :class (stl/css :icon)}])]])])
+               [:> icon* {:icon-id i/library :class (stl/css :file-label-icon)}])]])])
 
       (when ^boolean (or editable? can-be-deleted)
         [:div {:class (stl/css :edit-entry-buttons)}
@@ -392,7 +393,15 @@
 (mf/defc library-resolution*
   {::mf/private true}
   [{:keys [unresolved-file selection on-select]}]
-  (let [candidates (:pending unresolved-file)]
+  (let [candidates (:pending unresolved-file)
+        disconnected* (mf/use-state #{})
+        disconnected  (deref disconnected*)
+        on-change-disconnected
+        (mf/use-fn
+         (fn [id]
+           (swap! disconnected*
+                  (fn [s]
+                    (if (contains? s id) (disj s id) (conj s id))))))]
 
     ;; Pre-select first candidate for each library
     (mf/with-effect [candidates]
@@ -407,21 +416,53 @@
                 :typography t/body-large}
       "Some libraries couldn't be linked automatically. Select the correct library for each:"]
 
-     (for [{:keys [id name candidates]} candidates]
-       (let [options  (mapv (fn [c]
-                              {:id (str (:id c))
-                               :label (str (:name c) " (" (:project-name c) ")")})
-                            candidates)
-             selected (get selection id)]
-         [:div {:class (stl/css :library-resolution-item)
-                :key (dm/str id)}
-          [:div {:class (stl/css :library-resolution-item-name)}
-           name]
-          [:> select* {:options options
-                       :class (stl/css :library-resolution-select)
-                       :default-selected (or (some-> selected str) "")
-                       :has-portal true
-                       :on-change (partial on-select id)}]]))]))
+
+     [:table {:class (stl/css :library-resolution-table)}
+      [:thead
+       [:tr {:class (stl/css :library-resolution-header)}
+        [:th {:class (stl/css :library-origin-name)}
+         [:> icon* {:icon-id i/library
+                    :class (stl/css :library-resolution-icon)
+                    :size "s"}]
+         "original library"]
+        [:th {:class (stl/css :library-resolution-arrow)}]
+        [:th {:class (stl/css :library-resolution-connection)}
+         [:> icon* {:icon-id i/library
+                    :class (stl/css :library-resolution-icon)
+                    :size "s"}]
+         "connect to"]]]
+      [:tbody {:class (stl/css :library-resolution-body)}
+       (for [{:keys [id name candidates]} candidates]
+         (let [options  (mapv (fn [c]
+                                {:id (str (:id c))
+                                 :label (str (:name c) " (" (:project-name c) ")")})
+                              candidates)
+               selected (get selection id)
+               is-conected (not (contains? disconnected id))]
+           [:tr {:class (stl/css :library-resolution-item)
+                 :key (dm/str id)}
+            [:td {:class (stl/css :library-resolution-item-name)}
+             [:> checkbox* {:id (dm/str id)
+                            :label name
+                            :checked is-conected
+                            :on-change #(on-change-disconnected id)}]]
+            [:td {:class (stl/css :library-resolution-arrow)}
+             [:> icon* {:icon-id i/row
+                        :size "m"}]]
+            [:td
+             (if is-conected
+               [:> select* {:options options
+                            :class (stl/css :library-resolution-select)
+                            :default-selected (or (some-> selected str) "")
+                            :has-portal true
+                            :on-change (partial on-select id)}]
+
+               [:> text* {:class (stl/css :library-resolution-no-selection)
+                          :as "span"
+                          :typography t/body-small}
+                (let [selected-c (or (some #(when (= (str (:id %)) selected) %) candidates)
+                                     (first candidates))]
+                  (dm/str (:name selected-c) " (" (:project-name selected-c) ")"))])]]))]]]))
 
 (mf/defc library-resolution-summary-file*
   {::mf/private true}
@@ -430,19 +471,16 @@
         pending (:pending resolution-file)]
     [:div {:class (stl/css :summary-file)}
      [:div {:class (stl/css :summary-file-header)}
-      [:> icon* {:icon-id i/library
+      [:> icon* {:icon-id i/document
                  :class (stl/css :summary-file-icon)
                  :size "s"}]
-      [:span {:class (stl/css :summary-file-name)}
+      [:> text* {:class (stl/css :summary-file-name)
+                 :as "span"
+                 :typography t/body-medium}
        (:name resolution-file)]]
 
      (when (seq done)
        [:div {:class (stl/css :summary-section)}
-        [:div {:class (stl/css :summary-section-header)}
-         [:> icon* {:icon-id i/status-tick
-                    :class (stl/css :summary-section-icon)
-                    :size "s"}]
-         [:span (tr "dashboard.import.summary.auto-linked")]]
         [:ul {:class (stl/css :summary-list)}
          (for [{:keys [name]} done]
            [:li {:class (stl/css :summary-list-item)
@@ -457,11 +495,17 @@
      (when (seq pending)
        [:div {:class (stl/css :summary-section)}
         [:div {:class (stl/css :summary-section-header)}
-         [:> icon* {:icon-id i/open-link
-                    :class (stl/css :summary-section-icon)
-                    :size "s"}]
-         [:span (tr "dashboard.import.summary.your-selection")]]
+         [:> text* {:as "span"
+                    :typography t/headline-small}
+          "linked manually"]]
         [:ul {:class (stl/css :summary-list)}
+         [:li {:class (stl/css :summary-list-item)
+               :key "summary-list-header"}
+          [:span {:class (stl/css :summary-item-name-header)}
+           "Original"]
+
+          [:span {:class (stl/css :summary-item-name-header)}
+           "New"]]
          (for [{:keys [id name] :as cand} pending]
            (let [selected-id (get selection id)
                  selected-c  (when selected-id
@@ -469,6 +513,9 @@
              [:li {:class (stl/css :summary-list-item)
                    :key (dm/str id)}
               [:span {:class (stl/css :summary-item-name)} name]
+              [:> icon* {:icon-id i/row
+                         :size "m"
+                         :class (stl/css :summary-linked-arrow)}]
               (if selected-c
                 [:span {:class (stl/css :summary-linked-info)}
                  [:span {:class (stl/css :summary-linked-name)}
@@ -835,50 +882,60 @@
           (= :library-resolution status)
           [:*
            (when (seq visited)
-             [:input {:class (stl/css :cancel-button)
-                      :type "button"
-                      :value (tr "labels.previous")
-                      :on-click on-wizard-prev}])
+             [:> button* {:class (stl/css :cancel-button)
+                          :variant "secondary"
+                          :on-click on-wizard-prev}
+              (tr "labels.previous")])
            ;; Label flips to "Review" when this is the last unvisited unresolved file.
-           [:input {:class (stl/css :accept-btn)
-                    :type "button"
-                    :value (if all-visited?
-                             (tr "labels.next")
-                             (tr "dashboard.import.review-links"))
-                    :on-click on-wizard-next}]]
+           [:> button* {:class (stl/css :accept-btn)
+                        :variant "primary"
+                        :on-click on-wizard-next}
+            (if all-visited?
+              (tr "labels.next")
+              (tr "dashboard.import.review-links"))]]
 
           ;; Summary: Confirm / Back
           ;; Back pops the stack once and re-enters the wizard at the popped file.
           (= :library-summary status)
           [:*
            (when (seq visited)
-             [:input {:class (stl/css :cancel-button)
-                      :type "button"
-                      :value (tr "labels.back")
-                      :on-click on-summary-back}])
-           [:input {:class (stl/css :accept-btn)
-                    :type "button"
-                    :value (tr "dashboard.import.confirm-library-links")
-                    :on-click on-confirm-library-links}]]
+             [:> button* {:class (stl/css :cancel-button)
+                          :variant "secondary"
+                          :on-click on-summary-back}
+              (tr "labels.back")])
+           [:> button* {:class (stl/css :accept-btn)
+                        :variant "primary"
+                        :on-click on-confirm-library-links}
+            (tr "dashboard.import.confirm-library-links")]]
 
           (= :analyze status)
-          [:input {:class (stl/css :cancel-button)
-                   :type "button"
-                   :value (tr "labels.cancel")
-                   :on-click on-cancel}]
+          [:> button* {:class (stl/css :cancel-button)
+                       :variant "secondary"
+                       :on-click on-cancel}
+           (tr "labels.cancel")]
+
+          (= status :import-error)
+          [:> button* {:class (stl/css :accept-btn)
+                       :variant "primary"
+                       :on-click on-accept}
+           (tr "labels.accept")]
+
+          (= status :import-success)
+          [:> button* {:class (stl/css :accept-btn)
+                       :variant "primary"
+                       :on-click on-accept}
+           (tr "labels.accept")]
 
           (= status :import-ready)
-          [:input {:class (stl/css :accept-btn)
-                   :type "button"
-                   :value (tr "labels.continue")
-                   :disabled pending-analysis?
-                   :on-click on-continue}]
+          [:> button* {:class (stl/css :accept-btn)
+                       :variant "primary"
+                       :on-click on-continue}
+           (tr "labels.continue")]
 
           (or (= :import-success status)
               (= :import-error status)
               (= :import-progress status))
-          [:input {:class (stl/css :accept-btn)
-                   :type "button"
-                   :value (tr "labels.accept")
-                   :disabled (= :import-progress status)
-                   :on-click on-accept}])]]]]))
+          [:> button* {:class (stl/css :accept-btn)
+                       :variant "primary"
+                       :on-click on-accept}
+           (tr "labels.accept")])]]]]))
