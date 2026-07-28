@@ -538,6 +538,160 @@
        :resolution-file resolution-file
        :selection selection}])])
 
+
+;; ── Stage components ────────────────────────────────────────────────
+
+(mf/defc import-files-stage*
+  {::mf/private true}
+  [{:keys [entries template status errors? import-success-total auto-linked-count
+           edition on-edit on-change on-delete
+           on-cancel on-continue on-accept pending-analysis?]}]
+  [:*
+   [:div {:class (stl/css :modal-content)}
+    (when (and (= :analyze status) errors?)
+      [:> context-notification*
+       {:level :warning
+        :class (stl/css :context-notification-error)}
+       (tr "dashboard.import.import-warning")])
+
+    (when (= :import-success status)
+      [:*
+       [:> context-notification*
+        {:level (if (zero? import-success-total) :warning :success)}
+        (tr "dashboard.import.import-message" (i18n/c import-success-total))]
+       (when (pos? auto-linked-count)
+         [:> context-notification*
+          {:level :success}
+          (tr "dashboard.import.auto-linked-libraries" (i18n/c auto-linked-count))])])
+
+    (when (= :import-error status)
+      [:> context-notification*
+       {:level :error
+        :class (stl/css :context-notification-error)}
+       (tr "dashboard.import.import-error.disclaimer")])
+
+    (when (or (= :import-error status) (and (= :analyze status) errors?))
+      [:div {:class (stl/css :import-error-disclaimer)}
+       [:div (tr "dashboard.import.import-error.message1")]
+       [:ul {:class (stl/css :import-error-list)}
+        (for [entry entries]
+          (when (contains? #{:import-error :analyze-error} (:status entry))
+            [:li {:class (stl/css :import-error-list-enry)
+                  :key (dm/str (or (:file-id entry) (:uri entry) (:name entry)))}
+             [:div (:name entry)]
+             (when-let [err (:error entry)]
+               [:div {:class (stl/css :import-error-detail)}
+                (cond
+                  (and (string? err)
+                       (str/includes? (str/lower err) "check error"))
+                  (tr "dashboard.import.import-error.check-error")
+
+                  (and (string? err)
+                       (str/includes? (str/lower err) "corrupt"))
+                  (tr "dashboard.import.import-error.corrupt-file")
+
+                  :else
+                  (tr "dashboard.import.import-error.unknown-error"))])]))]
+       [:div (tr "dashboard.import.import-error.message2")]])
+
+    (for [entry entries]
+      [:> import-entry* {:edition edition
+                         :key (dm/str (:uri entry) "/" (:file-id entry))
+                         :entry entry
+                         :entries entries
+                         :is-progress (= :import-progress status)
+                         :on-edit on-edit
+                         :on-change on-change
+                         :on-delete on-delete
+                         :can-be-deleted (> (count entries) 1)}])
+
+    (when (some? template)
+      [:> import-entry* {:entry (assoc template :status status)
+                         :can-be-deleted false}])
+
+    (when (= :import-progress status)
+      [:div {:class (stl/css :status-message)
+             :role "status"
+             :aria-live "polite"}
+       (tr "labels.uploading-file")])]
+
+   [:div {:class (stl/css :modal-footer)}
+    [:div {:class (stl/css :action-buttons)}
+     (case status
+       :analyze
+       [:> button* {:class (stl/css :cancel-button)
+                    :variant "secondary"
+                    :on-click on-cancel}
+        (tr "labels.cancel")]
+
+       :import-ready
+       [:> button* {:class (stl/css :accept-btn)
+                    :variant "primary"
+                    :disabled pending-analysis?
+                    :on-click on-continue}
+        (tr "labels.continue")]
+
+       :import-progress
+       [:> button* {:class (stl/css :accept-btn)
+                    :variant "primary"
+                    :disabled true
+                    :on-click on-accept}
+        (tr "labels.accept")]
+
+       (:import-success :import-error)
+       [:> button* {:class (stl/css :accept-btn)
+                    :variant "primary"
+                    :on-click on-accept}
+        (tr "labels.accept")])]]])
+
+(mf/defc import-library-resolution-stage*
+  {::mf/private true}
+  [{:keys [current-unresolved-file selection on-select
+           visited all-visited?
+           on-wizard-prev on-wizard-next]}]
+  [:*
+   [:div {:class (stl/css :modal-content)}
+    [:> library-resolution*
+     {:unresolved-file current-unresolved-file
+      :selection selection
+      :on-select on-select}]]
+
+   [:div {:class (stl/css :modal-footer)}
+    [:div {:class (stl/css :action-buttons)}
+     (when (seq visited)
+       [:> button* {:class (stl/css :cancel-button)
+                    :variant "secondary"
+                    :on-click on-wizard-prev}
+        (tr "labels.previous")])
+     [:> button* {:class (stl/css :accept-btn)
+                  :variant "primary"
+                  :on-click on-wizard-next}
+      (if all-visited?
+        (tr "labels.next")
+        (tr "dashboard.import.review-links"))]]]])
+
+(mf/defc import-library-summary-stage*
+  {::mf/private true}
+  [{:keys [resolution selection visited
+           on-summary-back on-confirm-library-links]}]
+  [:*
+   [:div {:class (stl/css :modal-content)}
+    [:> library-resolution-summary*
+     {:resolution resolution
+      :selection selection}]]
+
+   [:div {:class (stl/css :modal-footer)}
+    [:div {:class (stl/css :action-buttons)}
+     (when (seq visited)
+       [:> button* {:class (stl/css :cancel-button)
+                    :variant "secondary"
+                    :on-click on-summary-back}
+        (tr "labels.back")])
+     [:> button* {:class (stl/css :accept-btn)
+                  :variant "primary"
+                  :on-click on-confirm-library-links}
+      (tr "dashboard.import.confirm-library-links")]]]])
+
 (mf/defc import-dialog
   {::mf/register modal/components
    ::mf/register-as :import
@@ -784,158 +938,41 @@
                          :class (stl/css :modal-close-btn)
                          :icon i/close}]]
 
-      [:div {:class (stl/css :modal-content)}
-       (cond
-         (and (= :analyze status) errors?)
-         [:> context-notification*
-          {:level :warning
-           :class (stl/css :context-notification-error)}
-          (tr "dashboard.import.import-warning")]
+      (case status
+        (:analyze :import-ready :import-progress :import-success :import-error)
+        [:> import-files-stage*
+         {:entries entries
+          :template template
+          :status status
+          :errors? errors?
+          :import-success-total import-success-total
+          :auto-linked-count auto-linked-count
+          :edition edition
+          :on-edit on-edit
+          :on-change on-entry-change
+          :on-delete on-entry-delete
+          :on-cancel on-cancel
+          :on-continue on-continue
+          :on-accept on-accept
+          :pending-analysis? pending-analysis?}]
 
-         (= :import-success status)
-         [:*
-          [:> context-notification*
-           {:level (if (zero? import-success-total) :warning :success)}
-           (tr "dashboard.import.import-message" (i18n/c import-success-total))]
-          (when (pos? auto-linked-count)
-            [:> context-notification*
-             {:level :success}
-             (tr "dashboard.import.auto-linked-libraries" (i18n/c auto-linked-count))])]
+        :library-resolution
+        [:> import-library-resolution-stage*
+         {:current-unresolved-file current-unresolved-file
+          :selection selection
+          :on-select (fn [old-lib-id candidate-id]
+                       (swap! selection* assoc old-lib-id candidate-id))
+          :visited visited
+          :all-visited? all-visited?
+          :on-wizard-prev on-wizard-prev
+          :on-wizard-next on-wizard-next}]
 
-         (= :import-error status)
-         [:> context-notification*
-          {:level :error
-           :class (stl/css :context-notification-error)}
-          (tr "dashboard.import.import-error.disclaimer")]
+        :library-summary
+        [:> import-library-summary-stage*
+         {:resolution resolution
+          :selection selection
+          :visited visited
+          :on-summary-back on-summary-back
+          :on-confirm-library-links on-confirm-library-links}]
 
-         ;; :resolution — wizard step (current derived file)
-         (= :library-resolution status)
-         [:> library-resolution*
-          {:unresolved-file current-unresolved-file
-           :selection selection
-           :on-select (fn [old-lib-id candidate-id]
-                        (swap! selection* assoc old-lib-id candidate-id))}]
-
-         ;; :library-summary — show all files with final resolution
-         (= :library-summary status)
-         [:> library-resolution-summary*
-          {:resolution resolution
-           :selection selection}])
-
-       (if (or (= :import-error status) (and (= :analyze status) errors?))
-         [:div {:class (stl/css :import-error-disclaimer)}
-          [:div (tr "dashboard.import.import-error.message1")]
-          [:ul {:class (stl/css :import-error-list)}
-           (for [entry entries]
-             (when (contains? #{:import-error :analyze-error} (:status entry))
-               [:li {:class (stl/css :import-error-list-enry)
-                     :key (dm/str (or (:file-id entry) (:uri entry) (:name entry)))}
-                [:div (:name entry)]
-                (when-let [err (:error entry)]
-                  [:div {:class (stl/css :import-error-detail)}
-                   ;; Temporary frontend-side error translations to provide more meaningful
-                   ;; messages until backend error handling is improved and standardized.
-                   ;; These mappings are only a short-term workaround and should be removed
-                   ;; once the error handling enhancement is implemented.
-                   ;; https://github.com/penpot/penpot/issues/9884
-                   (cond
-                     (and (string? err)
-                          (str/includes? (str/lower err) "check error"))
-                     (tr "dashboard.import.import-error.check-error")
-
-                     (and (string? err)
-                          (str/includes? (str/lower err) "corrupt"))
-                     (tr "dashboard.import.import-error.corrupt-file")
-
-                     :else
-                     (tr "dashboard.import.import-error.unknown-error"))])]))]
-
-          [:div (tr "dashboard.import.import-error.message2")]]
-
-         (when-not (or (= :library-resolution status)
-                       (= :library-summary status))
-           (for [entry entries]
-             [:> import-entry* {:edition edition
-                                :key (dm/str (:uri entry) "/" (:file-id entry))
-                                :entry entry
-                                :entries entries
-                                :is-progress (= :import-progress status)
-                                :on-edit on-edit
-                                :on-change on-entry-change
-                                :on-delete on-entry-delete
-                                :can-be-deleted (> (count entries) 1)}])))
-
-       (when (some? template)
-         [:> import-entry* {:entry (assoc template :status status)
-                            :can-be-deleted false}])
-
-       (when (= :import-progress status)
-         [:div {:class (stl/css :status-message)
-                :role "status"
-                :aria-live "polite"}
-          (tr "labels.uploading-file")])]
-
-      [:div {:class (stl/css :modal-footer)}
-       [:div {:class (stl/css :action-buttons)}
-        (cond
-          ;; Wizard step: Next / Previous (Previous only shown if stack is non-empty)
-          (= :library-resolution status)
-          [:*
-           (when (seq visited)
-             [:> button* {:class (stl/css :cancel-button)
-                          :variant "secondary"
-                          :on-click on-wizard-prev}
-              (tr "labels.previous")])
-           ;; Label flips to "Review" when this is the last unvisited unresolved file.
-           [:> button* {:class (stl/css :accept-btn)
-                        :variant "primary"
-                        :on-click on-wizard-next}
-            (if all-visited?
-              (tr "labels.next")
-              (tr "dashboard.import.review-links"))]]
-
-          ;; Summary: Confirm / Back
-          ;; Back pops the stack once and re-enters the wizard at the popped file.
-          (= :library-summary status)
-          [:*
-           (when (seq visited)
-             [:> button* {:class (stl/css :cancel-button)
-                          :variant "secondary"
-                          :on-click on-summary-back}
-              (tr "labels.back")])
-           [:> button* {:class (stl/css :accept-btn)
-                        :variant "primary"
-                        :on-click on-confirm-library-links}
-            (tr "dashboard.import.confirm-library-links")]]
-
-          (= :analyze status)
-          [:> button* {:class (stl/css :cancel-button)
-                       :variant "secondary"
-                       :on-click on-cancel}
-           (tr "labels.cancel")]
-
-          (= status :import-error)
-          [:> button* {:class (stl/css :accept-btn)
-                       :variant "primary"
-                       :on-click on-accept}
-           (tr "labels.accept")]
-
-          (= status :import-success)
-          [:> button* {:class (stl/css :accept-btn)
-                       :variant "primary"
-                       :on-click on-accept}
-           (tr "labels.accept")]
-
-          (= status :import-ready)
-          [:> button* {:class (stl/css :accept-btn)
-                       :variant "primary"
-                       :on-click on-continue}
-           (tr "labels.continue")]
-
-          (or (= :import-success status)
-              (= :import-error status)
-              (= :import-progress status))
-          [:> button* {:class (stl/css :accept-btn)
-                       :variant "primary"
-                       :on-click on-accept}
-           (tr "labels.accept")])]]]]))
+        nil)]]))

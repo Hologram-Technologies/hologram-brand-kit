@@ -202,6 +202,10 @@
   }
 }
 
+.context-notification-error {
+  --context-notification-bg-color: var(--color-background-primary);
+}
+
 .file-name-notification {
   flex-grow: 1;
 }
