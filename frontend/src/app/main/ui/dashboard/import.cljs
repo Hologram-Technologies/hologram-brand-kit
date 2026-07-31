@@ -23,13 +23,11 @@
    [app.main.ui.ds.controls.checkbox :refer [checkbox*]]
    [app.main.ui.ds.controls.select :refer [select*]]
    [app.main.ui.ds.foundations.assets.icon :as i :refer [icon*]]
-   [app.main.ui.ds.foundations.assets.raw-svg :as rsvg :refer [raw-svg*]]
    [app.main.ui.ds.foundations.typography :as t]
    [app.main.ui.ds.foundations.typography.heading :refer [heading*]]
    [app.main.ui.ds.foundations.typography.text :refer [text*]]
    [app.main.ui.ds.notifications.context-notification :refer [context-notification*]]
    [app.main.ui.ds.product.loader :refer [loader*]]
-   [app.main.ui.hooks :as hooks]
    [app.main.ui.icons :as deprecated-icon]
    [app.main.worker :as mw]
    [app.util.dom :as dom]
@@ -408,7 +406,7 @@
       (doseq [{:keys [id candidates]} candidates]
         (when-not (contains? selection id)
           (when-let [first-c (first candidates)]
-            (on-select id (:id first-c))))))
+            (on-select id (str (:id first-c)))))))
 
     [:div {:class (stl/css :library-resolution)}
      [:> text* {:class (stl/css :library-resolution-message)
@@ -495,7 +493,10 @@
      (when (seq pending)
        [:div {:class (stl/css :summary-section)}
         [:div {:class (stl/css :summary-section-header)}
+         ;; TODO: Add translation for this string
+
          [:> text* {:as "span"
+                    :class (stl/css :summary-section-title)
                     :typography t/headline-small}
           "linked manually"]]
         [:ul {:class (stl/css :summary-list)}
@@ -509,7 +510,7 @@
          (for [{:keys [id name] :as cand} pending]
            (let [selected-id (get selection id)
                  selected-c  (when selected-id
-                               (d/seek #(= (:id %) selected-id) (:candidates cand)))]
+                               (d/seek #(= (str (:id %)) (str selected-id)) (:candidates cand)))]
              [:li {:class (stl/css :summary-list-item)
                    :key (dm/str id)}
               [:span {:class (stl/css :summary-item-name)} name]
@@ -821,7 +822,7 @@
          (mf/deps resolution selection on-finish-import)
          (fn [event]
            (dom/prevent-default event)
-           (let [selection @selection*]
+           (let [slc selection]
              ;; For each file with pending candidates, link it to the selected libraries
              (->> (rx/from (seq resolution))
                   (rx/merge-map
@@ -829,7 +830,7 @@
                      (->> (rx/from (:pending resolution-file))
                           (rx/merge-map
                            (fn [{:keys [id]}]
-                             (when-let [selected-lib (get selection id)]
+                             (when-let [selected-lib (get slc id)]
                                (link-files-to-library! [file-id] selected-lib)))))))
                   (rx/subs! (constantly nil)
                             (constantly nil)
@@ -892,7 +893,13 @@
         auto-linked-count
         (if (some? resolution)
           (count-auto-linked resolution)
-          0)]
+          0)
+
+        manage-on-select
+        (mf/use-fn
+         (mf/deps selection)
+         (fn [old-lib-id candidate-id]
+           (swap! selection* assoc old-lib-id candidate-id)))]
 
     (mf/with-effect [visited unresolved-files]
       (when (and (seq unresolved-files)
@@ -960,8 +967,7 @@
         [:> import-library-resolution-stage*
          {:current-unresolved-file current-unresolved-file
           :selection selection
-          :on-select (fn [old-lib-id candidate-id]
-                       (swap! selection* assoc old-lib-id candidate-id))
+          :on-select manage-on-select
           :visited visited
           :all-visited? all-visited?
           :on-wizard-prev on-wizard-prev

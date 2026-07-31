@@ -348,6 +348,14 @@
   border-bottom: $b-1 solid var(--color-background-quaternary);
 }
 
+.summary-section-title {
+  color: var(--color-foreground-primary);
+}
+
+.summary-linked-arrow {
+  color: var(--color-foreground-secondary);
+}
+
 .summary-file-icon {
   color: var(--color-foreground-secondary);
   flex-shrink: 0;
