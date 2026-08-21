@@ -1615,20 +1615,6 @@
                    (map #(assoc % :library-of file-id))
                    (d/index-by :id))))))
 
-(defn- initialize-tokens-status
-  [library-id]
-  (ptk/reify ::initialize-tokens-status
-    ptk/WatchEvent
-    (watch [it state _]
-      (let [library (dm/get-in state [:files library-id])
-            library-data (ctf/file-data library)]
-        (when (some? (cfo/get-tokens-lib library-data))
-          (when-let [tokens-status (cfo/get-tokens-status library-data)]
-            (let [changes (-> (pcb/empty-changes it)
-                              (pcb/with-library-data library-data)
-                              (pcb/set-tokens-status tokens-status))]
-              (rx/of
-               (dch/commit-changes changes)))))))))
 
 (defn- load-library-file
   [file-id library-id]
@@ -1641,8 +1627,7 @@
               (rx/merge-map fpmap/resolve-file)
               (rx/mapcat (fn [file]
                            (rx/of
-                            (libraries-fetched file-id [file])
-                            (initialize-tokens-status library-id)))))
+                            (libraries-fetched file-id [file])))))
          (->> (rp/cmd! :get-file-object-thumbnails {:file-id library-id :tag "component"})
               (rx/map (fn [thumbnails]
                         (fn [state]
