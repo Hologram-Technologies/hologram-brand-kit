@@ -365,7 +365,7 @@
     (sto/put-object! storage
                      {::sto/content      data
                       ::sto/deduplicate? false
-                      ::sto/touch        true
+                      ::sto/touched-at   (ct/in-future {:hours 1})
                       :content-type      (:mtype content)
                       :bucket            "tempfile"
                       :upload-id         (str session-id)
