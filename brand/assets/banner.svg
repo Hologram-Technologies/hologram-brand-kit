@@ -1,0 +1,53 @@
+<svg width="1600" height="400" viewBox="0 0 1600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hologram Brand Kit banner — drawn from brand tokens:
+       bg core.neutral.950 #0a0a0a · hairline #ffffff1a · radius.lg 10px
+       ramp = the exact neutral palette · accents red.600 / blue.700 -->
+  <defs>
+    <radialGradient id="glow" cx="0.18" cy="0.1" r="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.055"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="frame"><rect width="1600" height="400" rx="16"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1600" height="400" fill="#0a0a0a"/>
+    <rect width="1600" height="400" fill="url(#glow)"/>
+    <!-- hairline grid, barely there -->
+    <g stroke="#ffffff" stroke-opacity="0.04">
+      <path d="M400 0V400M800 0V400M1200 0V400M0 200H1600"/>
+    </g>
+  </g>
+  <rect x="0.5" y="0.5" width="1599" height="399" rx="15.5" stroke="#ffffff" stroke-opacity="0.1"/>
+
+  <!-- wordmark -->
+  <g font-family="'Geist','Inter','Segoe UI',system-ui,sans-serif">
+    <text x="96" y="192" font-size="58" font-weight="600" letter-spacing="-1.5">
+      <tspan fill="#fafafa">Hologram</tspan><tspan fill="#737373"> Brand Kit</tspan>
+    </text>
+    <text x="98" y="240" font-size="21" font-weight="400" fill="#a1a1a1" letter-spacing="0">One design language. Tokens, components, themes.</text>
+    <text x="98" y="274" font-size="21" font-weight="400" fill="#525252" letter-spacing="0">shadcn/ui &#215; Penpot &#183; verified oklch-exact</text>
+  </g>
+
+  <!-- neutral ramp 50→950, 6×2, radius.lg, hairline strokes -->
+  <g transform="translate(1118,124)">
+    <g stroke="#ffffff" stroke-opacity="0.1">
+      <rect x="0"   y="0"  width="56" height="56" rx="10" fill="#ffffff"/>
+      <rect x="66"  y="0"  width="56" height="56" rx="10" fill="#fafafa"/>
+      <rect x="132" y="0"  width="56" height="56" rx="10" fill="#f5f5f5"/>
+      <rect x="198" y="0"  width="56" height="56" rx="10" fill="#e5e5e5"/>
+      <rect x="264" y="0"  width="56" height="56" rx="10" fill="#d4d4d4"/>
+      <rect x="330" y="0"  width="56" height="56" rx="10" fill="#a1a1a1"/>
+      <rect x="0"   y="66" width="56" height="56" rx="10" fill="#737373"/>
+      <rect x="66"  y="66" width="56" height="56" rx="10" fill="#525252"/>
+      <rect x="132" y="66" width="56" height="56" rx="10" fill="#404040"/>
+      <rect x="198" y="66" width="56" height="56" rx="10" fill="#262626"/>
+      <rect x="264" y="66" width="56" height="56" rx="10" fill="#171717"/>
+      <rect x="330" y="66" width="56" height="56" rx="10" fill="#0a0a0a"/>
+    </g>
+    <!-- accents: destructive red.600, sidebar-primary blue.700 -->
+    <rect x="0"   y="146" width="56" height="10" rx="5" fill="#e7000b"/>
+    <rect x="66"  y="146" width="56" height="10" rx="5" fill="#1447e6"/>
+    <rect x="132" y="146" width="254" height="10" rx="5" fill="#ffffff" fill-opacity="0.1"/>
+  </g>
+</svg>
