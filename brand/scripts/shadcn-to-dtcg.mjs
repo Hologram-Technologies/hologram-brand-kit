@@ -13,7 +13,7 @@
 //
 // Usage: node shadcn-to-dtcg.mjs [--fetch]
 
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -134,13 +134,14 @@ function set(obj, path, value) {
   node[parts.at(-1)] = value;
 }
 
-function buildSemanticSet(vars) {
+function buildSemanticSet(vars, { useCore = true } = {}) {
   const out = {};
   for (const [name, value] of Object.entries(vars)) {
     if (name === "radius") continue; // mode-independent, lives in global
     // Keep shadcn's flat hyphenated names: "primary-foreground" must NOT nest
     // under the "primary" token (a node cannot be both token and group).
-    set(out, `color.${name}`, { $type: "color", $value: semanticValue(value) });
+    set(out, `color.${name}`,
+      { $type: "color", $value: useCore ? semanticValue(value) : oklchToHex(value) });
   }
   return out;
 }
@@ -205,6 +206,35 @@ function main(source) {
   writeFileSync(outPath, JSON.stringify(tokens, null, 2));
   const count = JSON.stringify(tokens).match(/\$type/g).length;
   console.log(`wrote ${outPath} (${count} tokens, sets: core global light dark, themes: light dark)`);
+  buildVariants(global);
+}
+
+// Every other shadcn base color (stone, zinc, mauve, …) becomes a standalone
+// variant token file: same global set, semantic colors as raw hex.
+function buildVariants(global) {
+  const colorsDir = join(tokensDir, "source", "colors");
+  const variantsDir = join(tokensDir, "variants");
+  mkdirSync(variantsDir, { recursive: true });
+  const names = readdirSync(colorsDir)
+    .filter((f) => f.endsWith(".json") && f !== "neutral.json")
+    .map((f) => f.replace(".json", ""));
+  for (const name of names) {
+    const { cssVarsV4 } = JSON.parse(readFileSync(join(colorsDir, `${name}.json`), "utf8"));
+    const tokens = {
+      global,
+      light: buildSemanticSet(cssVarsV4.light, { useCore: false }),
+      dark: buildSemanticSet(cssVarsV4.dark, { useCore: false }),
+      $themes: ["light", "dark"].map((mode) => ({
+        name: mode,
+        description: `shadcn/ui ${mode} mode (${name} base)`,
+        selectedTokenSets: { global: "enabled", [mode]: "enabled" },
+      })),
+      $metadata: { tokenSetOrder: ["global", "light", "dark"] },
+    };
+    writeFileSync(join(variantsDir, `hologram-tokens-${name}.json`),
+      JSON.stringify(tokens, null, 2));
+  }
+  console.log(`wrote ${names.length} variants (${names.join(", ")}) → tokens/variants/`);
 }
 
 import { pathToFileURL } from "node:url";

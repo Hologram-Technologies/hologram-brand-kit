@@ -1,8 +1,9 @@
 # Hologram Brand Kit
 
-The visual foundation of Hologram, seeded from the [shadcn/ui](https://ui.shadcn.com)
-design language ("new-york" style, neutral base) and expressed as W3C DTCG design
-tokens that Penpot imports natively.
+**The default brand kit for Hologram.** Seeded from the
+[shadcn/ui](https://ui.shadcn.com) design language ("new-york" style, neutral
+base): its theme expressed as W3C DTCG design tokens that Penpot imports
+natively, and its complete component registry vendored at a pinned commit.
 
 This directory is self-contained. The surrounding repo is a fork of
 [penpot/penpot](https://github.com/penpot/penpot) — the tool — and stays
@@ -14,12 +15,18 @@ upstream-mergeable: nothing outside `brand/` is modified.
 brand/
   tokens/
     source/shadcn-neutral.json   # snapshot of the shadcn registry (canonical input)
-    hologram-tokens.json         # generated DTCG tokens — SOURCE OF TRUTH
+    source/colors/*.json         # all 9 base-color themes (neutral … taupe)
+    hologram-tokens.json         # generated DTCG tokens (neutral) — SOURCE OF TRUTH
     hologram-tokens.zip          # same, packaged for Penpot import
+    variants/                    # generated tokens for the other 8 base colors
   css/hologram-theme.css         # generated shadcn-compatible CSS variables
   scripts/
     shadcn-to-dtcg.mjs           # registry oklch vars → DTCG tokens (+ correctness gate)
     dtcg-to-css.mjs              # DTCG tokens → CSS vars (+ round-trip parity gate)
+  vendor/shadcn-ui/              # complete shadcn/ui registry, pinned (see VENDOR.md):
+                                 #   62 ui components, charts, blocks, examples,
+                                 #   3 primitive bases (radix/base/aria), 8 styles,
+                                 #   themes, hooks, lib — MIT, verbatim, do not edit
 ```
 
 ## Regenerate
