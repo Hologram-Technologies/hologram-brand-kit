@@ -20,7 +20,8 @@ brand/
     hologram-tokens.zip          # same, packaged for Penpot import
     variants/                    # generated tokens for the other 8 base colors
   css/hologram-theme.css         # generated shadcn-compatible CSS variables
-  logos/                         # generated: logomark + lockup, SVG source, PNG exports
+  logos/                         # canonical marks: dotted-H logomark, Archivo wordmark
+                                 #   (glyphs as paths), lockup; SVG source, PNG exports
   colors/swatches/               # generated: one SVG swatch per palette color
   fonts/                         # Geist + Geist Mono, OTF and woff2, OFL.txt alongside
   public/                        # generated: palette and typography sheets

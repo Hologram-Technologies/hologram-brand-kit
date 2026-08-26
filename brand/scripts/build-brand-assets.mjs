@@ -43,33 +43,9 @@ function hexParts(hex) {
   return { rgb: a === null ? `${r}, ${g}, ${b}` : `${r}, ${g}, ${b}, ${a}%`, alpha: a };
 }
 
-// ------------------------------------------------------------------ logos
+// Logos are canonical authored assets (the dotted-H mark and the Archivo
+// SemiBold wordmark) committed under brand/logos/svg — never generated here.
 
-const MARK = (fg) => `<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="166" y="70" width="288" height="288" rx="52" stroke="${fg}" stroke-opacity="0.22" stroke-width="12"/>
-  <rect x="118" y="118" width="288" height="288" rx="52" stroke="${fg}" stroke-opacity="0.45" stroke-width="12"/>
-  <rect x="70" y="166" width="288" height="288" rx="52" fill="${fg}"/>
-</svg>
-`;
-
-const LOCKUP = (fg) => `<svg width="640" height="160" viewBox="0 0 640 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(28,26) scale(0.2109)">
-    <rect x="166" y="70" width="288" height="288" rx="52" stroke="${fg}" stroke-opacity="0.22" stroke-width="14"/>
-    <rect x="118" y="118" width="288" height="288" rx="52" stroke="${fg}" stroke-opacity="0.45" stroke-width="14"/>
-    <rect x="70" y="166" width="288" height="288" rx="52" fill="${fg}"/>
-  </g>
-  <text x="160" y="106" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="64" font-weight="600" letter-spacing="-1.5" fill="${fg}">Hologram</text>
-</svg>
-`;
-
-function writeLogos() {
-  for (const [variant, fg] of [["Black", "#0a0a0a"], ["White", "#fafafa"]]) {
-    mkdirSync(join(brand, "logos", "svg", "logomark"), { recursive: true });
-    mkdirSync(join(brand, "logos", "svg", "lockup"), { recursive: true });
-    writeFileSync(join(brand, "logos", "svg", "logomark", `Hologram_Logomark_${variant}.svg`), MARK(fg));
-    writeFileSync(join(brand, "logos", "svg", "lockup", `Hologram_Lockup_${variant}.svg`), LOCKUP(fg));
-  }
-}
 
 // ------------------------------------------------------------------ swatches
 
@@ -160,10 +136,9 @@ function writeReadme(light, dark) {
 
 const light = palette("light");
 const dark = palette("dark");
-writeLogos();
 const swatches = writeSwatches([...light, ...dark]);
 mkdirSync(join(brand, "public"), { recursive: true });
 writeFileSync(join(brand, "public", "Hologram_Palette.svg"), paletteSheet(light, dark));
 writeFileSync(join(brand, "public", "Hologram_Typography.svg"), typographySheet());
 writeReadme(light, dark);
-console.log(`logos: 4 · swatches: ${swatches.size} · sheets: 2 · README written`);
+console.log(`swatches: ${swatches.size} · sheets: 2 · README written`);

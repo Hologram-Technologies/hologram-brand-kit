@@ -40,16 +40,22 @@ function render(svgPath, outPath, width) {
   writeFileSync(outPath, resvg.render().asPng());
 }
 
+let n = 0;
 for (const variant of ["Black", "White"]) {
   for (const size of [128, 256, 512]) {
     render(
       join(brand, "logos", "svg", "logomark", `Hologram_Logomark_${variant}.svg`),
       join(brand, "logos", "png", "logomark", `Hologram_Logomark_${variant}_${size}px.png`),
       size);
+    n++;
   }
-  render(
-    join(brand, "logos", "svg", "lockup", `Hologram_Lockup_${variant}.svg`),
-    join(brand, "logos", "png", "lockup", `Hologram_Lockup_${variant}_512px.png`),
-    512);
+  for (const kind of ["wordmark", "lockup"]) {
+    const Name = kind[0].toUpperCase() + kind.slice(1);
+    render(
+      join(brand, "logos", "svg", kind, `Hologram_${Name}_${variant}.svg`),
+      join(brand, "logos", "png", kind, `Hologram_${Name}_${variant}_1024px.png`),
+      1024);
+    n++;
+  }
 }
-console.log("rendered 8 PNGs (logomark 128/256/512, lockup 512, both variants)");
+console.log(`rendered ${n} PNGs (logomark 128/256/512, wordmark 1024, lockup 1024, both variants)`);

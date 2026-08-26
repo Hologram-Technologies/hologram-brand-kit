@@ -19,15 +19,24 @@ component library. Brand ground: `#0a0a0a`.
 | <img src="brand/logos/png/logomark/Hologram_Logomark_White_128px.png" width="64"> | Hologram Logomark (White) | [SVG](brand/logos/svg/logomark/Hologram_Logomark_White.svg) · [128](brand/logos/png/logomark/Hologram_Logomark_White_128px.png) · [256](brand/logos/png/logomark/Hologram_Logomark_White_256px.png) · [512](brand/logos/png/logomark/Hologram_Logomark_White_512px.png) |
 | <img src="brand/logos/png/logomark/Hologram_Logomark_Black_128px.png" width="64"> | Hologram Logomark (Black) | [SVG](brand/logos/svg/logomark/Hologram_Logomark_Black.svg) · [128](brand/logos/png/logomark/Hologram_Logomark_Black_128px.png) · [256](brand/logos/png/logomark/Hologram_Logomark_Black_256px.png) · [512](brand/logos/png/logomark/Hologram_Logomark_Black_512px.png) |
 
+### Wordmark
+
+| Preview | Name | Download |
+|---|---|---|
+| <img src="brand/logos/png/wordmark/Hologram_Wordmark_White_1024px.png" height="24"> | Hologram Wordmark (White) | [SVG](brand/logos/svg/wordmark/Hologram_Wordmark_White.svg) · [PNG](brand/logos/png/wordmark/Hologram_Wordmark_White_1024px.png) |
+| <img src="brand/logos/png/wordmark/Hologram_Wordmark_Black_1024px.png" height="24"> | Hologram Wordmark (Black) | [SVG](brand/logos/svg/wordmark/Hologram_Wordmark_Black.svg) · [PNG](brand/logos/png/wordmark/Hologram_Wordmark_Black_1024px.png) |
+
 ### Lockup
 
 | Preview | Name | Download |
 |---|---|---|
-| <img src="brand/logos/png/lockup/Hologram_Lockup_White_512px.png" height="36"> | Hologram Lockup (White) | [SVG](brand/logos/svg/lockup/Hologram_Lockup_White.svg) · [PNG](brand/logos/png/lockup/Hologram_Lockup_White_512px.png) |
-| <img src="brand/logos/png/lockup/Hologram_Lockup_Black_512px.png" height="36"> | Hologram Lockup (Black) | [SVG](brand/logos/svg/lockup/Hologram_Lockup_Black.svg) · [PNG](brand/logos/png/lockup/Hologram_Lockup_Black_512px.png) |
+| <img src="brand/logos/png/lockup/Hologram_Lockup_White_1024px.png" height="36"> | Hologram Lockup (White) | [SVG](brand/logos/svg/lockup/Hologram_Lockup_White.svg) · [PNG](brand/logos/png/lockup/Hologram_Lockup_White_1024px.png) |
+| <img src="brand/logos/png/lockup/Hologram_Lockup_Black_1024px.png" height="36"> | Hologram Lockup (Black) | [SVG](brand/logos/svg/lockup/Hologram_Lockup_Black.svg) · [PNG](brand/logos/png/lockup/Hologram_Lockup_Black_1024px.png) |
 
-The white variant is primary and sits on the brand ground. The black variant is
-for light surfaces and print.
+The mark is a halftone sphere resolving into an H. The wordmark is set in
+Archivo SemiBold, tracked wide, drawn as paths so no font is required. The
+white variants are primary and sit on the brand ground; black is for light
+surfaces and print.
 
 
 ## Color System
