@@ -9,7 +9,6 @@ component library. Brand ground: `#0a0a0a`.
 
 [gethologram.ai](https://gethologram.ai) · [Hologram OS](https://github.com/Hologram-Technologies/hologram-os)
 
----
 
 ## Logo System
 
@@ -30,7 +29,6 @@ component library. Brand ground: `#0a0a0a`.
 The white variant is primary and sits on the brand ground. The black variant is
 for light surfaces and print.
 
----
 
 ## Color System
 
@@ -51,7 +49,6 @@ Primary mode of the product. Border and input are alpha whites over the ground.
 The full palette, including chart and sidebar roles and eight alternative
 neutral bases, lives in [brand/tokens](brand/tokens).
 
----
 
 ## Typography
 
@@ -64,7 +61,6 @@ neutral bases, lives in [brand/tokens](brand/tokens).
 
 Scale: 12, 14, 16, 18, 20, 24, 30, 36 px. Weights: 400, 500, 600, 700.
 
----
 
 ## Design Tokens
 
@@ -72,7 +68,6 @@ Design tokens (W3C DTCG): [hologram-tokens.json](brand/tokens/hologram-tokens.js
 CSS variables for the web: [hologram-theme.css](brand/css/hologram-theme.css)
 Alternative neutral bases (stone, zinc, slate, gray, mauve, olive, mist, taupe): [brand/tokens/variants](brand/tokens/variants)
 
----
 
 ## Components
 
@@ -80,10 +75,9 @@ A complete UI component library ships under [brand/vendor](brand/vendor/shadcn-u
 MIT licensed: 62 core components, charts, blocks, and themes, bound to the same
 token source as this document.
 
----
 
 ## License
 
-Brand kit and generators: [MPL-2.0](LICENSE), with the repository it extends.
+Brand kit and generators: [MPL 2.0](LICENSE), with the repository it extends.
 Fonts: Geist and Geist Mono, [SIL OFL 1.1](brand/fonts/OFL.txt).
 Vendored components: [MIT](brand/vendor/shadcn-ui/LICENSE.md).
