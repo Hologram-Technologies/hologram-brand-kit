@@ -1,11 +1,12 @@
-<svg width="880" height="360" viewBox="0 0 880 360" xmlns="http://www.w3.org/2000/svg">
-  <rect width="880" height="360" rx="16" fill="#0a0a0a"/>
-  <rect x="0.5" y="0.5" width="879" height="359" rx="15.5" fill="none" stroke="#ffffff" stroke-opacity="0.1"/>
-  <text x="48" y="56" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="600" fill="#fafafa">Typography</text>
-  <text x="48" y="128" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="44" font-weight="600" letter-spacing="-1" fill="#fafafa">Geist</text>
-  <text x="48" y="164" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" fill="#a1a1a1">The quick brown fox jumps over the lazy dog</text>
-  <text x="48" y="230" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="36" fill="#fafafa">Geist Mono</text>
-  <text x="48" y="264" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="16" fill="#a1a1a1">0123456789 {}[]() =&gt; const kit = "hologram"</text>
-  <path d="M48 296H832" stroke="#ffffff" stroke-opacity="0.08"/>
-  <text x="48" y="326" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="13" fill="#737373">scale xs 12 · sm 14 · base 16 · lg 18 · xl 20 · 2xl 24 · 3xl 30 · 4xl 36 px · weights 400 500 600 700</text>
+<svg width="880" height="440" viewBox="0 0 880 440" xmlns="http://www.w3.org/2000/svg">
+  <rect width="880" height="440" rx="16" fill="#151312"/>
+  <rect x="0.5" y="0.5" width="879" height="439" rx="15.5" fill="none" stroke="#ffffff" stroke-opacity="0.1"/>
+  <text x="48" y="56" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="600" fill="#f6f5f4">Typography</text>
+  <text x="48" y="150" font-family="Archivo, Geist, 'Segoe UI', system-ui, sans-serif" font-size="64" font-weight="600" letter-spacing="-1.9" fill="#f6f5f4">Hologram</text>
+  <text x="48" y="184" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" fill="#a6a4a2">Archivo · display and headlines · tracking tight</text>
+  <text x="48" y="248" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="20" fill="#f6f5f4">Geist carries the interface and body copy.</text>
+  <text x="48" y="278" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" fill="#a6a4a2">Geist · interface and body · 16px floor</text>
+  <text x="48" y="336" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="17" fill="#f6f5f4">Geist Mono · const kit = "hologram"</text>
+  <path d="M48 372H832" stroke="#ffffff" stroke-opacity="0.08"/>
+  <text x="48" y="404" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">scale 12 14 16 18 20 24 30 36 48 64 · weights 400 to 700 · nothing below 14</text>
 </svg>

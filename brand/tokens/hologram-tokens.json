@@ -138,6 +138,10 @@
           "$type": "fontFamilies",
           "$value": "Geist, Inter, sans-serif"
         },
+        "display": {
+          "$type": "fontFamilies",
+          "$value": "Archivo, Geist, sans-serif"
+        },
         "mono": {
           "$type": "fontFamilies",
           "$value": "Geist Mono, JetBrains Mono, monospace"
@@ -175,6 +179,14 @@
         "4xl": {
           "$type": "fontSizes",
           "$value": "36px"
+        },
+        "5xl": {
+          "$type": "fontSizes",
+          "$value": "48px"
+        },
+        "6xl": {
+          "$type": "fontSizes",
+          "$value": "64px"
         }
       },
       "weight": {
@@ -193,6 +205,20 @@
         "bold": {
           "$type": "fontWeights",
           "$value": "700"
+        }
+      },
+      "tracking": {
+        "display": {
+          "$type": "letterSpacing",
+          "$value": "-0.03em"
+        },
+        "normal": {
+          "$type": "letterSpacing",
+          "$value": "0em"
+        },
+        "caps": {
+          "$type": "letterSpacing",
+          "$value": "0.22em"
         }
       }
     }
@@ -453,10 +479,180 @@
       }
     }
   },
+  "hologram-dark": {
+    "color": {
+      "background": {
+        "$type": "color",
+        "$value": "#151312"
+      },
+      "foreground": {
+        "$type": "color",
+        "$value": "#f6f5f4"
+      },
+      "card": {
+        "$type": "color",
+        "$value": "#1e1c1b"
+      },
+      "card-foreground": {
+        "$type": "color",
+        "$value": "#f6f5f4"
+      },
+      "popover": {
+        "$type": "color",
+        "$value": "#1e1c1b"
+      },
+      "popover-foreground": {
+        "$type": "color",
+        "$value": "#f6f5f4"
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "#e7e5e3"
+      },
+      "primary-foreground": {
+        "$type": "color",
+        "$value": "#1e1c1b"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#282624"
+      },
+      "secondary-foreground": {
+        "$type": "color",
+        "$value": "#f6f5f4"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "#282624"
+      },
+      "muted-foreground": {
+        "$type": "color",
+        "$value": "#a6a4a2"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#e93b01"
+      },
+      "accent-foreground": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "destructive": {
+        "$type": "color",
+        "$value": "#ff6467"
+      },
+      "border": {
+        "$type": "color",
+        "$value": "#ffffff1a"
+      },
+      "input": {
+        "$type": "color",
+        "$value": "#ffffff26"
+      },
+      "ring": {
+        "$type": "color",
+        "$value": "#757371"
+      }
+    }
+  },
+  "hologram-light": {
+    "color": {
+      "background": {
+        "$type": "color",
+        "$value": "#f3f3ee"
+      },
+      "foreground": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "card": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "card-foreground": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "popover": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "popover-foreground": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "primary-foreground": {
+        "$type": "color",
+        "$value": "#f3f3ee"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#eae9e1"
+      },
+      "secondary-foreground": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "#eae9e1"
+      },
+      "muted-foreground": {
+        "$type": "color",
+        "$value": "#6b6660"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#e93b01"
+      },
+      "accent-foreground": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "destructive": {
+        "$type": "color",
+        "$value": "#e7000b"
+      },
+      "border": {
+        "$type": "color",
+        "$value": "#deddd4"
+      },
+      "input": {
+        "$type": "color",
+        "$value": "#deddd4"
+      },
+      "ring": {
+        "$type": "color",
+        "$value": "#a8a399"
+      }
+    }
+  },
   "$themes": [
     {
+      "name": "hologram-dark",
+      "description": "Hologram brand, warm dark ground (primary)",
+      "selectedTokenSets": {
+        "core": "enabled",
+        "global": "enabled",
+        "hologram-dark": "enabled"
+      }
+    },
+    {
+      "name": "hologram-light",
+      "description": "Hologram brand, warm paper",
+      "selectedTokenSets": {
+        "core": "enabled",
+        "global": "enabled",
+        "hologram-light": "enabled"
+      }
+    },
+    {
       "name": "light",
-      "description": "shadcn/ui light mode (neutral base)",
+      "description": "neutral baseline, light",
       "selectedTokenSets": {
         "core": "enabled",
         "global": "enabled",
@@ -465,7 +661,7 @@
     },
     {
       "name": "dark",
-      "description": "shadcn/ui dark mode (neutral base)",
+      "description": "neutral baseline, dark",
       "selectedTokenSets": {
         "core": "enabled",
         "global": "enabled",
@@ -477,6 +673,8 @@
     "tokenSetOrder": [
       "core",
       "global",
+      "hologram-dark",
+      "hologram-light",
       "light",
       "dark"
     ]

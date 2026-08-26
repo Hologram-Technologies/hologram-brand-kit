@@ -70,6 +70,10 @@
           "$type": "fontFamilies",
           "$value": "Geist, Inter, sans-serif"
         },
+        "display": {
+          "$type": "fontFamilies",
+          "$value": "Archivo, Geist, sans-serif"
+        },
         "mono": {
           "$type": "fontFamilies",
           "$value": "Geist Mono, JetBrains Mono, monospace"
@@ -107,6 +111,14 @@
         "4xl": {
           "$type": "fontSizes",
           "$value": "36px"
+        },
+        "5xl": {
+          "$type": "fontSizes",
+          "$value": "48px"
+        },
+        "6xl": {
+          "$type": "fontSizes",
+          "$value": "64px"
         }
       },
       "weight": {
@@ -125,6 +137,20 @@
         "bold": {
           "$type": "fontWeights",
           "$value": "700"
+        }
+      },
+      "tracking": {
+        "display": {
+          "$type": "letterSpacing",
+          "$value": "-0.03em"
+        },
+        "normal": {
+          "$type": "letterSpacing",
+          "$value": "0em"
+        },
+        "caps": {
+          "$type": "letterSpacing",
+          "$value": "0.22em"
         }
       }
     }

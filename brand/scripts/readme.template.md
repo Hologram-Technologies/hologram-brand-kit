@@ -5,7 +5,7 @@
 # Hologram Brand System
 
 The visual identity of Hologram: logos, color, typography, tokens, and a complete
-component library. Brand ground: `#0a0a0a`.
+component library. Warm ground `{{GROUND}}`, one accent `{{ACCENT}}`.
 
 [gethologram.ai](https://gethologram.ai) · [Hologram OS](https://github.com/Hologram-Technologies/hologram-os)
 
@@ -35,58 +35,79 @@ component library. Brand ground: `#0a0a0a`.
 
 The mark is a halftone sphere resolving into an H. The wordmark is set in
 Archivo SemiBold, tracked wide, drawn as paths so no font is required. The
-white variants are primary and sit on the brand ground; black is for light
-surfaces and print.
+white variants are primary and sit on the warm ground; black is for paper
+and print.
 
 
 ## Color System
 
 [![Hologram Palette](brand/public/Hologram_Palette.svg)](brand/public/Hologram_Palette.svg)
 
-### Light
-
-Default for documents, print, and light surfaces.
-
-{{LIGHT_TABLE}}
+The accent is the only saturated color in the system apart from destructive,
+and it appears once per view at most.
 
 ### Dark
 
-Primary mode of the product. Border and input are alpha whites over the ground.
+The primary mode of the product. A warm near black ground, hairline borders
+as alpha whites.
 
 {{DARK_TABLE}}
 
-The full palette, including chart and sidebar roles and eight alternative
-neutral bases, lives in [brand/tokens](brand/tokens).
+### Paper
+
+Warm paper for documents, print, and light surfaces.
+
+{{PAPER_TABLE}}
+
+A neutral baseline (the unmodified upstream theme) and eight alternative
+neutral bases ship alongside in [brand/tokens](brand/tokens).
 
 
 ## Typography
 
 [![Hologram Typography](brand/public/Hologram_Typography.svg)](brand/public/Hologram_Typography.svg)
 
-| Font | Use | OTF | Web |
+| Font | Use | Desktop | Web |
 |---|---|---|---|
-| Geist | Interface, headings, body | [Regular](brand/fonts/otf/Geist-Regular.otf) · [Medium](brand/fonts/otf/Geist-Medium.otf) · [SemiBold](brand/fonts/otf/Geist-SemiBold.otf) · [Bold](brand/fonts/otf/Geist-Bold.otf) | [Regular](brand/fonts/web/Geist-Regular.woff2) · [Medium](brand/fonts/web/Geist-Medium.woff2) · [SemiBold](brand/fonts/web/Geist-SemiBold.woff2) · [Bold](brand/fonts/web/Geist-Bold.woff2) |
-| Geist Mono | Code, data, labels | [Regular](brand/fonts/otf/GeistMono-Regular.otf) · [Medium](brand/fonts/otf/GeistMono-Medium.otf) | [Regular](brand/fonts/web/GeistMono-Regular.woff2) · [Medium](brand/fonts/web/GeistMono-Medium.woff2) |
+| Archivo | Display, headlines, wordmark | [Variable](brand/fonts/otf/Archivo-Variable.ttf) | [Medium](brand/fonts/web/Archivo-Medium.woff2) · [SemiBold](brand/fonts/web/Archivo-SemiBold.woff2) · [Bold](brand/fonts/web/Archivo-Bold.woff2) |
+| Geist | Interface, body | [Regular](brand/fonts/otf/Geist-Regular.otf) · [Medium](brand/fonts/otf/Geist-Medium.otf) · [SemiBold](brand/fonts/otf/Geist-SemiBold.otf) · [Bold](brand/fonts/otf/Geist-Bold.otf) | [Regular](brand/fonts/web/Geist-Regular.woff2) · [Medium](brand/fonts/web/Geist-Medium.woff2) · [SemiBold](brand/fonts/web/Geist-SemiBold.woff2) · [Bold](brand/fonts/web/Geist-Bold.woff2) |
+| Geist Mono | Code, data | [Regular](brand/fonts/otf/GeistMono-Regular.otf) · [Medium](brand/fonts/otf/GeistMono-Medium.otf) | [Regular](brand/fonts/web/GeistMono-Regular.woff2) · [Medium](brand/fonts/web/GeistMono-Medium.woff2) |
 
-Scale: 12, 14, 16, 18, 20, 24, 30, 36 px. Weights: 400, 500, 600, 700.
+Scale: 12, 14, 16, 18, 20, 24, 30, 36, 48, 64 px. Weights: 400, 500, 600, 700.
+Display tracks tight at minus 3 percent; spaced caps track at plus 22 percent
+and are reserved for the wordmark. Body text never drops below 16px, secondary
+text never below 14px, and nothing on any surface is smaller than 14px.
+
+
+## Components
+
+[![Hologram Components](brand/public/Hologram_Components.svg)](brand/public/Hologram_Components.svg)
+
+The brand theme for the web: [hologram-warm.css](brand/css/hologram-warm.css),
+standard shadcn variable names, drop in and add the `dark` class for the dark
+ground. A complete UI component library ships under
+[brand/vendor](brand/vendor/shadcn-ui), MIT licensed: 62 core components,
+charts, blocks, and themes, bound to the same token source as this document.
+The neutral baseline theme remains at
+[hologram-theme.css](brand/css/hologram-theme.css).
+
+
+## Voice
+
+Short declarative sentences. Say one thing per sentence and stop.
+No dashes as punctuation, no emojis, no exclamation marks.
+Nothing decorative that does not carry information.
 
 
 ## Design Tokens
 
 Design tokens (W3C DTCG): [hologram-tokens.json](brand/tokens/hologram-tokens.json) · [import package](brand/tokens/hologram-tokens.zip)
-CSS variables for the web: [hologram-theme.css](brand/css/hologram-theme.css)
+CSS variables for the web: [hologram-warm.css](brand/css/hologram-warm.css) · [hologram-theme.css](brand/css/hologram-theme.css)
 Alternative neutral bases (stone, zinc, slate, gray, mauve, olive, mist, taupe): [brand/tokens/variants](brand/tokens/variants)
-
-
-## Components
-
-A complete UI component library ships under [brand/vendor](brand/vendor/shadcn-ui),
-MIT licensed: 62 core components, charts, blocks, and themes, bound to the same
-token source as this document.
 
 
 ## License
 
 Brand kit and generators: [MPL 2.0](LICENSE), with the repository it extends.
-Fonts: Geist and Geist Mono, [SIL OFL 1.1](brand/fonts/OFL.txt).
+Fonts: Geist and Geist Mono under [SIL OFL 1.1](brand/fonts/OFL.txt), Archivo under [SIL OFL 1.1](brand/fonts/OFL-Archivo.txt).
 Vendored components: [MIT](brand/vendor/shadcn-ui/LICENSE.md).

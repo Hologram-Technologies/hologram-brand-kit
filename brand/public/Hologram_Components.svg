@@ -1,0 +1,29 @@
+<svg width="880" height="360" viewBox="0 0 880 360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="880" height="360" rx="16" fill="#151312"/>
+  <rect x="0.5" y="0.5" width="879" height="359" rx="15.5" fill="none" stroke="#ffffff" stroke-opacity="0.1"/>
+  
+  <rect x="36" y="48" width="400" height="264" rx="12" fill="#151312"/>
+  <rect x="36.5" y="48.5" width="399" height="263" rx="11.5" fill="none" stroke="#ffffff1a"/>
+  <text x="68" y="88" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" fill="#a6a4a2">Dark</text>
+  <rect x="68" y="108" width="150" height="44" rx="10" fill="#e93b01"/>
+  <text x="143" y="136" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#ffffff" text-anchor="middle">Get started</text>
+  <rect x="242" y="108" width="150" height="44" rx="10" fill="#282624"/>
+  <text x="317" y="136" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="500" fill="#f6f5f4" text-anchor="middle">Learn more</text>
+  <rect x="68" y="176" width="324" height="52" rx="10" fill="#ffffff26" stroke="none"/>
+  <text x="88" y="207" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" fill="#a6a4a2">you@uor.foundation</text>
+  <rect x="68" y="252" width="324" height="1" fill="#ffffff1a"/>
+  <text x="68" y="286" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" fill="#f6f5f4">Cards sit on hairlines, not shadows.</text>
+  
+  <rect x="448" y="48" width="400" height="264" rx="12" fill="#f3f3ee"/>
+  <rect x="448.5" y="48.5" width="399" height="263" rx="11.5" fill="none" stroke="#deddd4"/>
+  <text x="480" y="88" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" fill="#6b6660">Paper</text>
+  <rect x="480" y="108" width="150" height="44" rx="10" fill="#e93b01"/>
+  <text x="555" y="136" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#ffffff" text-anchor="middle">Get started</text>
+  <rect x="654" y="108" width="150" height="44" rx="10" fill="#eae9e1"/>
+  <text x="729" y="136" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="500" fill="#302b28" text-anchor="middle">Learn more</text>
+  <rect x="480" y="176" width="324" height="52" rx="10" fill="#ffffff" stroke="#deddd4"/>
+  <text x="500" y="207" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" fill="#6b6660">you@uor.foundation</text>
+  <rect x="480" y="252" width="324" height="1" fill="#deddd4"/>
+  <text x="480" y="286" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" fill="#302b28">Cards sit on hairlines, not shadows.</text>
+  <text x="36" y="340" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">every value above is a token · accent appears once per view</text>
+</svg>
