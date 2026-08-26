@@ -121,9 +121,9 @@
   [(aget id 0) (aget id 1) (aget id 2) (aget id 3) weight style])
 
 (defn fonts-for-shapes
-  "Distinct font families needed by every subtree in `shape-ids`. Objects in a
-  partition overwhelmingly share families, so deduping here means one download
-  and one `_store_font` per family rather than one per object."
+  "Distinct font families needed by every subtree in `shape-ids`. Objects in one
+  export overwhelmingly share families, so deduping here means one download and
+  one `_store_font` per family rather than one per object."
   [shape-ids]
   (into [] (comp (mapcat fonts-for-shape)
                  (d/distinct-xf font-key))
@@ -156,10 +156,14 @@
   "Recomputes a text shape's layout with the currently provisioned fonts. Text is
   laid out at serialize time using the fallback font (real fonts aren't uploaded
   yet), so this must run again after `provision-fonts!` or glyph metrics/line
-  breaks are wrong."
+  breaks are wrong.
+
+  Forced, because provisioning a font changes nothing `update_layout` keys on:
+  it early-returns while the content is unchanged and the layout still matches
+  its container, which is exactly the case here."
   [shape-id]
   (let [buf (uuid/get-u32 shape-id)]
-    (h/call wasm/internal-module "_update_shape_text_layout_for"
+    (h/call wasm/internal-module "_force_update_shape_text_layout_for"
             (aget buf 0) (aget buf 1) (aget buf 2) (aget buf 3))))
 
 (defn image-cached?
