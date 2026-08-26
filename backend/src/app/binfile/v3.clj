@@ -69,6 +69,7 @@
     [:vector
      [:tuple ::sm/uuid ::sm/uuid]]]
 
+   ;; TODO: rename to :links
    [:external-libraries {:optional true}
     [:vector
      [:map
@@ -225,6 +226,8 @@
     (.flush writer))
   (.closeEntry output))
 
+
+;; TODO: deprecate embed-assets and include-libraries and replace it by type
 (defn- get-file
   [{:keys [::bfc/embed-assets ::bfc/include-libraries] :as cfg} file-id]
 
@@ -392,7 +395,7 @@
         ;; not included in the export set. Only relevant when libraries
         ;; are NOT bundled in the export.
         external-libs
-        (when-not include-libraries
+        (when (::bfc/link-later cfg)
           (let [original-rels (bfc/get-files-rels cfg original-ids)
                 lib-ids       (into #{} (map :library-file-id) original-rels)]
             (when (seq lib-ids)

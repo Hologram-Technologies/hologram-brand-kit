@@ -212,7 +212,7 @@
       (t/is (= 1 (count (:file-ids result))))
       (t/is (every? uuid? (:file-ids result)))
       ;; No external libraries in simple case - resolution should be empty
-      (t/is (= {} (:resolution result)))))
+      (t/is (= {} (:resolution result))))))
 
 (t/deftest export-binfile-preserves-public-uri-subpath
   (let [profile (th/create-profile* 1)
