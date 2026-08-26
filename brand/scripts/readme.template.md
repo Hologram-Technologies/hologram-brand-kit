@@ -40,39 +40,13 @@ for light surfaces and print.
 
 Default for documents, print, and light surfaces.
 
-| | Token | Hex | RGB |
-|---|---|---|---|
-| ![#ffffff](brand/colors/swatches/ffffff.svg) | `color.background` | `#ffffff` | 255, 255, 255 |
-| ![#0a0a0a](brand/colors/swatches/0a0a0a.svg) | `color.foreground` | `#0a0a0a` | 10, 10, 10 |
-| ![#ffffff](brand/colors/swatches/ffffff.svg) | `color.card` | `#ffffff` | 255, 255, 255 |
-| ![#ffffff](brand/colors/swatches/ffffff.svg) | `color.popover` | `#ffffff` | 255, 255, 255 |
-| ![#171717](brand/colors/swatches/171717.svg) | `color.primary` | `#171717` | 23, 23, 23 |
-| ![#f5f5f5](brand/colors/swatches/f5f5f5.svg) | `color.secondary` | `#f5f5f5` | 245, 245, 245 |
-| ![#f5f5f5](brand/colors/swatches/f5f5f5.svg) | `color.muted` | `#f5f5f5` | 245, 245, 245 |
-| ![#f5f5f5](brand/colors/swatches/f5f5f5.svg) | `color.accent` | `#f5f5f5` | 245, 245, 245 |
-| ![#e7000b](brand/colors/swatches/e7000b.svg) | `color.destructive` | `#e7000b` | 231, 0, 11 |
-| ![#e5e5e5](brand/colors/swatches/e5e5e5.svg) | `color.border` | `#e5e5e5` | 229, 229, 229 |
-| ![#e5e5e5](brand/colors/swatches/e5e5e5.svg) | `color.input` | `#e5e5e5` | 229, 229, 229 |
-| ![#a1a1a1](brand/colors/swatches/a1a1a1.svg) | `color.ring` | `#a1a1a1` | 161, 161, 161 |
+{{LIGHT_TABLE}}
 
 ### Dark
 
 Primary mode of the product. Border and input are alpha whites over the ground.
 
-| | Token | Hex | RGB |
-|---|---|---|---|
-| ![#0a0a0a](brand/colors/swatches/0a0a0a.svg) | `color.background` | `#0a0a0a` | 10, 10, 10 |
-| ![#fafafa](brand/colors/swatches/fafafa.svg) | `color.foreground` | `#fafafa` | 250, 250, 250 |
-| ![#171717](brand/colors/swatches/171717.svg) | `color.card` | `#171717` | 23, 23, 23 |
-| ![#171717](brand/colors/swatches/171717.svg) | `color.popover` | `#171717` | 23, 23, 23 |
-| ![#e5e5e5](brand/colors/swatches/e5e5e5.svg) | `color.primary` | `#e5e5e5` | 229, 229, 229 |
-| ![#262626](brand/colors/swatches/262626.svg) | `color.secondary` | `#262626` | 38, 38, 38 |
-| ![#262626](brand/colors/swatches/262626.svg) | `color.muted` | `#262626` | 38, 38, 38 |
-| ![#262626](brand/colors/swatches/262626.svg) | `color.accent` | `#262626` | 38, 38, 38 |
-| ![#ff6467](brand/colors/swatches/ff6467.svg) | `color.destructive` | `#ff6467` | 255, 100, 103 |
-| ![#ffffff1a](brand/colors/swatches/ffffff1a.svg) | `color.border` | `#ffffff1a` | 255, 255, 255, 10% |
-| ![#ffffff26](brand/colors/swatches/ffffff26.svg) | `color.input` | `#ffffff26` | 255, 255, 255, 15% |
-| ![#737373](brand/colors/swatches/737373.svg) | `color.ring` | `#737373` | 115, 115, 115 |
+{{DARK_TABLE}}
 
 The full palette, including chart and sidebar roles and eight alternative
 neutral bases, lives in [brand/tokens](brand/tokens).

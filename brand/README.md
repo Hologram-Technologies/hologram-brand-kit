@@ -20,20 +20,32 @@ brand/
     hologram-tokens.zip          # same, packaged for Penpot import
     variants/                    # generated tokens for the other 8 base colors
   css/hologram-theme.css         # generated shadcn-compatible CSS variables
+  logos/                         # generated: logomark + lockup, SVG source, PNG exports
+  colors/swatches/               # generated: one SVG swatch per palette color
+  fonts/                         # Geist + Geist Mono, OTF and woff2, OFL.txt alongside
+  public/                        # generated: palette and typography sheets
+  assets/banner.svg              # repo banner
   scripts/
     shadcn-to-dtcg.mjs           # registry oklch vars → DTCG tokens (+ correctness gate)
     dtcg-to-css.mjs              # DTCG tokens → CSS vars (+ round-trip parity gate)
+    build-brand-assets.mjs       # tokens → logos, swatches, sheets, root README
+    readme.template.md           # template for the root README (color tables injected)
+    render-png.mjs               # logo SVG → PNG (needs @resvg/resvg-js, not a repo dep)
   vendor/shadcn-ui/              # complete shadcn/ui registry, pinned (see VENDOR.md):
                                  #   62 ui components, charts, blocks, examples,
                                  #   3 primitive bases (radix/base/aria), 8 styles,
                                  #   themes, hooks, lib — MIT, verbatim, do not edit
 ```
 
+The root README is generated — edit `scripts/readme.template.md`, never README.md.
+
 ## Regenerate
 
 ```
 node scripts/shadcn-to-dtcg.mjs          # rebuild tokens (add --fetch to re-pull registry)
 node scripts/dtcg-to-css.mjs --check     # rebuild CSS + verify round-trip parity
+node scripts/build-brand-assets.mjs      # rebuild logos, swatches, sheets, root README
+node scripts/render-png.mjs              # re-export logo PNGs (needs @resvg/resvg-js)
 ```
 
 No dependencies — plain Node. Both scripts carry verification gates:
