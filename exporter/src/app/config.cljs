@@ -28,7 +28,16 @@
    :http-server-port 6061
    :http-server-host "0.0.0.0"
    :tempdir "/tmp/penpot"
-   :redis-uri "redis://redis/0"})
+   :redis-uri "redis://redis/0"
+   :export-max-concurrent-jobs 4
+   :export-max-jobs-per-profile 2
+   :export-queue-max 64
+   :export-job-ttl 3600
+   :wasm-worker-pool-max 2
+   :wasm-worker-pool-min 1
+   :wasm-worker-acquire-timeout 300
+   :wasm-render-idle-timeout 300
+   :wasm-image-cache-mb 128})
 
 (def ^:private schema:config
   [:map {:title "config"}
@@ -42,7 +51,16 @@
    [:redis-uri {:optional true} :string]
    [:tempdir {:optional true} :string]
    [:browser-pool-max {:optional true} ::sm/int]
-   [:browser-pool-min {:optional true} ::sm/int]])
+   [:browser-pool-min {:optional true} ::sm/int]
+   [:export-max-concurrent-jobs {:optional true} ::sm/int]
+   [:export-max-jobs-per-profile {:optional true} ::sm/int]
+   [:export-queue-max {:optional true} ::sm/int]
+   [:export-job-ttl {:optional true} ::sm/int]
+   [:wasm-worker-pool-max {:optional true} ::sm/int]
+   [:wasm-worker-pool-min {:optional true} ::sm/int]
+   [:wasm-worker-acquire-timeout {:optional true} ::sm/int]
+   [:wasm-render-idle-timeout {:optional true} ::sm/int]
+   [:wasm-image-cache-mb {:optional true} ::sm/int]])
 
 (def ^:private decode-config
   (sm/decoder schema:config sm/string-transformer))
