@@ -62,6 +62,8 @@ as alpha whites.
 | ![#282624](brand/colors/swatches/282624.svg) | `color.muted` | `#282624` | 40, 38, 36 |
 | ![#e93b01](brand/colors/swatches/e93b01.svg) | `color.accent` | `#e93b01` | 233, 59, 1 |
 | ![#ff6467](brand/colors/swatches/ff6467.svg) | `color.destructive` | `#ff6467` | 255, 100, 103 |
+| ![#5fd18b](brand/colors/swatches/5fd18b.svg) | `color.success` | `#5fd18b` | 95, 209, 139 |
+| ![#767472](brand/colors/swatches/767472.svg) | `color.muted-foreground-subtle` | `#767472` | 118, 116, 114 |
 | ![#ffffff1a](brand/colors/swatches/ffffff1a.svg) | `color.border` | `#ffffff1a` | 255, 255, 255, 10% |
 | ![#ffffff26](brand/colors/swatches/ffffff26.svg) | `color.input` | `#ffffff26` | 255, 255, 255, 15% |
 | ![#757371](brand/colors/swatches/757371.svg) | `color.ring` | `#757371` | 117, 115, 113 |
@@ -81,12 +83,22 @@ Warm paper for documents, print, and light surfaces.
 | ![#eae9e1](brand/colors/swatches/eae9e1.svg) | `color.muted` | `#eae9e1` | 234, 233, 225 |
 | ![#e93b01](brand/colors/swatches/e93b01.svg) | `color.accent` | `#e93b01` | 233, 59, 1 |
 | ![#e7000b](brand/colors/swatches/e7000b.svg) | `color.destructive` | `#e7000b` | 231, 0, 11 |
+| ![#1f7a4d](brand/colors/swatches/1f7a4d.svg) | `color.success` | `#1f7a4d` | 31, 122, 77 |
+| ![#8a857e](brand/colors/swatches/8a857e.svg) | `color.muted-foreground-subtle` | `#8a857e` | 138, 133, 126 |
 | ![#deddd4](brand/colors/swatches/deddd4.svg) | `color.border` | `#deddd4` | 222, 221, 212 |
 | ![#deddd4](brand/colors/swatches/deddd4.svg) | `color.input` | `#deddd4` | 222, 221, 212 |
 | ![#a8a399](brand/colors/swatches/a8a399.svg) | `color.ring` | `#a8a399` | 168, 163, 153 |
 
-A neutral baseline (the unmodified upstream theme) and eight alternative
+A neutral baseline (the upstream theme) and eight alternative
 neutral bases ship alongside in [brand/tokens](brand/tokens).
+
+Three tokens deliberately diverge from the shadcn base, in every theme and
+variant. `success` and `success-foreground` exist because shadcn ships no
+positive color and Hologram surfaces need one. Light `sidebar-primary` is
+the brand blue `#1447e6` because dark already carries it and light mode
+must keep link and tag affordances. `muted-foreground-subtle` is a second
+gray step for tertiary text. The css generator's `--check` asserts each
+divergence exactly.
 
 
 ## Typography
