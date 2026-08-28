@@ -1,10 +1,10 @@
-<svg width="880" height="608" viewBox="0 0 880 608" xmlns="http://www.w3.org/2000/svg">
-  <rect width="880" height="608" rx="16" fill="#151312"/>
-  <rect x="0.5" y="0.5" width="879" height="607" rx="15.5" fill="none" stroke="#ffffff" stroke-opacity="0.1"/>
+<svg width="880" height="648" viewBox="0 0 880 648" xmlns="http://www.w3.org/2000/svg">
+  <rect width="880" height="648" rx="16" fill="#151312"/>
+  <rect x="0.5" y="0.5" width="879" height="647" rx="15.5" fill="none" stroke="#ffffff" stroke-opacity="0.1"/>
   <text x="48" y="56" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="600" fill="#f6f5f4">Color</text>
   <text x="48" y="80" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" fill="#7d7a77">Dark</text>
   <text x="472" y="80" font-family="Geist, Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" fill="#7d7a77">Paper</text>
-  <path d="M440 48V576" stroke="#ffffff" stroke-opacity="0.08"/>
+  <path d="M440 48V616" stroke="#ffffff" stroke-opacity="0.08"/>
   
     <rect x="48" y="96" width="44" height="26" rx="8" fill="#1e1c1b"/>
     <rect x="48" y="96" width="44" height="26" rx="8" fill="#151312" stroke="#808080" stroke-opacity="0.35"/>
@@ -35,25 +35,29 @@
     <text x="108" y="354" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.muted</text>
     <text x="292" y="354" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#282624</text>
     <rect x="48" y="376" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="48" y="376" width="44" height="26" rx="8" fill="#e93b01" stroke="#808080" stroke-opacity="0.35"/>
+    <rect x="48" y="376" width="44" height="26" rx="8" fill="#282624" stroke="#808080" stroke-opacity="0.35"/>
     <text x="108" y="394" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.accent</text>
-    <text x="292" y="394" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#e93b01</text>
+    <text x="292" y="394" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#282624</text>
     <rect x="48" y="416" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="48" y="416" width="44" height="26" rx="8" fill="#ff6467" stroke="#808080" stroke-opacity="0.35"/>
-    <text x="108" y="434" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.destructive</text>
-    <text x="292" y="434" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#ff6467</text>
+    <rect x="48" y="416" width="44" height="26" rx="8" fill="#e93b01" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="108" y="434" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.brand</text>
+    <text x="292" y="434" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#e93b01</text>
     <rect x="48" y="456" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="48" y="456" width="44" height="26" rx="8" fill="#ffffff1a" stroke="#808080" stroke-opacity="0.35"/>
-    <text x="108" y="474" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.border</text>
-    <text x="292" y="474" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#ffffff1a</text>
+    <rect x="48" y="456" width="44" height="26" rx="8" fill="#ff6467" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="108" y="474" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.destructive</text>
+    <text x="292" y="474" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#ff6467</text>
     <rect x="48" y="496" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="48" y="496" width="44" height="26" rx="8" fill="#ffffff26" stroke="#808080" stroke-opacity="0.35"/>
-    <text x="108" y="514" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.input</text>
-    <text x="292" y="514" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#ffffff26</text>
+    <rect x="48" y="496" width="44" height="26" rx="8" fill="#ffffff1a" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="108" y="514" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.border</text>
+    <text x="292" y="514" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#ffffff1a</text>
     <rect x="48" y="536" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="48" y="536" width="44" height="26" rx="8" fill="#757371" stroke="#808080" stroke-opacity="0.35"/>
-    <text x="108" y="554" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.ring</text>
-    <text x="292" y="554" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#757371</text>
+    <rect x="48" y="536" width="44" height="26" rx="8" fill="#ffffff26" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="108" y="554" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.input</text>
+    <text x="292" y="554" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#ffffff26</text>
+    <rect x="48" y="576" width="44" height="26" rx="8" fill="#1e1c1b"/>
+    <rect x="48" y="576" width="44" height="26" rx="8" fill="#757371" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="108" y="594" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.ring</text>
+    <text x="292" y="594" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#757371</text>
   
     <rect x="472" y="96" width="44" height="26" rx="8" fill="#1e1c1b"/>
     <rect x="472" y="96" width="44" height="26" rx="8" fill="#f3f3ee" stroke="#808080" stroke-opacity="0.35"/>
@@ -84,23 +88,27 @@
     <text x="532" y="354" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.muted</text>
     <text x="716" y="354" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#eae9e1</text>
     <rect x="472" y="376" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="472" y="376" width="44" height="26" rx="8" fill="#e93b01" stroke="#808080" stroke-opacity="0.35"/>
+    <rect x="472" y="376" width="44" height="26" rx="8" fill="#e0dfd6" stroke="#808080" stroke-opacity="0.35"/>
     <text x="532" y="394" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.accent</text>
-    <text x="716" y="394" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#e93b01</text>
+    <text x="716" y="394" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#e0dfd6</text>
     <rect x="472" y="416" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="472" y="416" width="44" height="26" rx="8" fill="#e7000b" stroke="#808080" stroke-opacity="0.35"/>
-    <text x="532" y="434" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.destructive</text>
-    <text x="716" y="434" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#e7000b</text>
+    <rect x="472" y="416" width="44" height="26" rx="8" fill="#e93b01" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="532" y="434" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.brand</text>
+    <text x="716" y="434" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#e93b01</text>
     <rect x="472" y="456" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="472" y="456" width="44" height="26" rx="8" fill="#deddd4" stroke="#808080" stroke-opacity="0.35"/>
-    <text x="532" y="474" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.border</text>
-    <text x="716" y="474" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#deddd4</text>
+    <rect x="472" y="456" width="44" height="26" rx="8" fill="#e7000b" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="532" y="474" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.destructive</text>
+    <text x="716" y="474" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#e7000b</text>
     <rect x="472" y="496" width="44" height="26" rx="8" fill="#1e1c1b"/>
     <rect x="472" y="496" width="44" height="26" rx="8" fill="#deddd4" stroke="#808080" stroke-opacity="0.35"/>
-    <text x="532" y="514" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.input</text>
+    <text x="532" y="514" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.border</text>
     <text x="716" y="514" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#deddd4</text>
     <rect x="472" y="536" width="44" height="26" rx="8" fill="#1e1c1b"/>
-    <rect x="472" y="536" width="44" height="26" rx="8" fill="#a8a399" stroke="#808080" stroke-opacity="0.35"/>
-    <text x="532" y="554" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.ring</text>
-    <text x="716" y="554" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#a8a399</text>
+    <rect x="472" y="536" width="44" height="26" rx="8" fill="#deddd4" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="532" y="554" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.input</text>
+    <text x="716" y="554" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#deddd4</text>
+    <rect x="472" y="576" width="44" height="26" rx="8" fill="#1e1c1b"/>
+    <rect x="472" y="576" width="44" height="26" rx="8" fill="#a8a399" stroke="#808080" stroke-opacity="0.35"/>
+    <text x="532" y="594" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#a6a4a2">color.ring</text>
+    <text x="716" y="594" font-family="'Geist Mono', 'JetBrains Mono', Consolas, monospace" font-size="14" fill="#7d7a77">#a8a399</text>
 </svg>

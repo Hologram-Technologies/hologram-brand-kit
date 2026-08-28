@@ -30,7 +30,7 @@ function resolveRef(value) {
 }
 
 const SEMANTIC = ["background", "foreground", "card", "popover", "primary",
-  "secondary", "muted", "accent", "destructive", "border", "input", "ring"];
+  "secondary", "muted", "accent", "brand", "destructive", "border", "input", "ring"];
 
 function palette(setName) {
   return SEMANTIC.map((name) => {
@@ -126,7 +126,7 @@ const G = {                                   // the warm ground, from tokens
   card: () => color("hologram-dark", "card"),
   fg: () => color("hologram-dark", "foreground"),
   muted: () => color("hologram-dark", "muted-foreground"),
-  accent: () => color("hologram-dark", "accent"),
+  accent: () => color("hologram-dark", "brand"),
 };
 
 function frame(w, h) {
@@ -181,8 +181,8 @@ function componentsSheet() {
   <rect x="${x}" y="48" width="${w}" height="264" rx="12" fill="${c("background")}"/>
   <rect x="${x + 0.5}" y="48.5" width="${w - 1}" height="263" rx="11.5" fill="none" stroke="${hairline}"/>
   <text x="${x + 32}" y="88" font-family="${FONT}" font-size="14" fill="${c("muted-foreground")}">${label}</text>
-  <rect x="${x + 32}" y="108" width="150" height="44" rx="10" fill="${c("accent")}"/>
-  <text x="${x + 107}" y="136" font-family="${FONT}" font-size="16" font-weight="600" fill="${c("accent-foreground")}" text-anchor="middle">Get started</text>
+  <rect x="${x + 32}" y="108" width="150" height="44" rx="10" fill="${c("brand")}"/>
+  <text x="${x + 107}" y="136" font-family="${FONT}" font-size="16" font-weight="600" fill="${c("brand-foreground")}" text-anchor="middle">Get started</text>
   <rect x="${x + 206}" y="108" width="150" height="44" rx="10" fill="${c("secondary")}"/>
   <text x="${x + 281}" y="136" font-family="${FONT}" font-size="16" font-weight="500" fill="${c("secondary-foreground")}" text-anchor="middle">Learn more</text>
   <rect x="${x + 32}" y="176" width="324" height="52" rx="10" fill="${paper ? c("card") : "#ffffff26"}" stroke="${paper ? c("input") : "none"}"/>
@@ -234,7 +234,7 @@ function writeReadme(dark, light) {
   const out = tpl
     .replaceAll("{{DARK_TABLE}}", table(dark))
     .replaceAll("{{PAPER_TABLE}}", table(light))
-    .replaceAll("{{ACCENT}}", color("hologram-dark", "accent"))
+    .replaceAll("{{ACCENT}}", color("hologram-dark", "brand"))
     .replaceAll("{{GROUND}}", color("hologram-dark", "background"));
   writeFileSync(join(brand, "..", "README.md"), out);
 }

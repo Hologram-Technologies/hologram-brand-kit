@@ -5,7 +5,7 @@
 # Hologram Brand System
 
 The visual identity of Hologram: logos, color, typography, tokens, and a complete
-component library. Warm ground `{{GROUND}}`, one accent `{{ACCENT}}`.
+component library. Warm ground `{{GROUND}}`, one brand accent `{{ACCENT}}`.
 
 [gethologram.ai](https://gethologram.ai) · [Hologram OS](https://github.com/Hologram-Technologies/hologram-os)
 
@@ -43,8 +43,9 @@ and print.
 
 [![Hologram Palette](brand/public/Hologram_Palette.svg)](brand/public/Hologram_Palette.svg)
 
-The accent is the only saturated color in the system apart from destructive,
-and it appears once per view at most.
+The brand accent is the only saturated color in the system apart from
+destructive, and it appears once per view at most. The accent role itself is
+a quiet surface, as the component library expects.
 
 ### Dark
 
@@ -81,15 +82,19 @@ text never below 14px, and nothing on any surface is smaller than 14px.
 
 ## Components
 
-[![Hologram Components](brand/public/Hologram_Components.svg)](brand/public/Hologram_Components.svg)
+[![Hologram Library](brand/public/Hologram_Library.png)](https://hologram-technologies.github.io/hologram-brand-kit/)
+
+The entire library, live: [hologram-technologies.github.io/hologram-brand-kit](https://hologram-technologies.github.io/hologram-brand-kit/)
+
+All 61 components of the vendored library render in the brand theme; a build
+gate fails if any component is missing from the showcase. Run it locally with
+`npm install` and `npm run dev` in [brand/showcase](brand/showcase).
 
 The brand theme for the web: [hologram-warm.css](brand/css/hologram-warm.css),
 standard shadcn variable names, drop in and add the `dark` class for the dark
-ground. A complete UI component library ships under
-[brand/vendor](brand/vendor/shadcn-ui), MIT licensed: 62 core components,
-charts, blocks, and themes, bound to the same token source as this document.
-The neutral baseline theme remains at
-[hologram-theme.css](brand/css/hologram-theme.css).
+ground. The library source ships under [brand/vendor](brand/vendor/shadcn-ui),
+MIT licensed, bound to the same token source as this document. The neutral
+baseline theme remains at [hologram-theme.css](brand/css/hologram-theme.css).
 
 
 ## Voice

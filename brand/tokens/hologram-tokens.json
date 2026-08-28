@@ -531,9 +531,17 @@
       },
       "accent": {
         "$type": "color",
-        "$value": "#e93b01"
+        "$value": "#282624"
       },
       "accent-foreground": {
+        "$type": "color",
+        "$value": "#f6f5f4"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "#e93b01"
+      },
+      "brand-foreground": {
         "$type": "color",
         "$value": "#ffffff"
       },
@@ -550,6 +558,58 @@
         "$value": "#ffffff26"
       },
       "ring": {
+        "$type": "color",
+        "$value": "#757371"
+      },
+      "chart-1": {
+        "$type": "color",
+        "$value": "#e93b01"
+      },
+      "chart-2": {
+        "$type": "color",
+        "$value": "#d6d4d2"
+      },
+      "chart-3": {
+        "$type": "color",
+        "$value": "#a3a09e"
+      },
+      "chart-4": {
+        "$type": "color",
+        "$value": "#757371"
+      },
+      "chart-5": {
+        "$type": "color",
+        "$value": "#545250"
+      },
+      "sidebar": {
+        "$type": "color",
+        "$value": "#1e1c1b"
+      },
+      "sidebar-foreground": {
+        "$type": "color",
+        "$value": "#f6f5f4"
+      },
+      "sidebar-primary": {
+        "$type": "color",
+        "$value": "#e93b01"
+      },
+      "sidebar-primary-foreground": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "sidebar-accent": {
+        "$type": "color",
+        "$value": "#282624"
+      },
+      "sidebar-accent-foreground": {
+        "$type": "color",
+        "$value": "#f6f5f4"
+      },
+      "sidebar-border": {
+        "$type": "color",
+        "$value": "#ffffff1a"
+      },
+      "sidebar-ring": {
         "$type": "color",
         "$value": "#757371"
       }
@@ -607,9 +667,17 @@
       },
       "accent": {
         "$type": "color",
-        "$value": "#e93b01"
+        "$value": "#e0dfd6"
       },
       "accent-foreground": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "#e93b01"
+      },
+      "brand-foreground": {
         "$type": "color",
         "$value": "#ffffff"
       },
@@ -626,6 +694,58 @@
         "$value": "#deddd4"
       },
       "ring": {
+        "$type": "color",
+        "$value": "#a8a399"
+      },
+      "chart-1": {
+        "$type": "color",
+        "$value": "#e93b01"
+      },
+      "chart-2": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "chart-3": {
+        "$type": "color",
+        "$value": "#6b6660"
+      },
+      "chart-4": {
+        "$type": "color",
+        "$value": "#a8a399"
+      },
+      "chart-5": {
+        "$type": "color",
+        "$value": "#deddd4"
+      },
+      "sidebar": {
+        "$type": "color",
+        "$value": "#eae9e1"
+      },
+      "sidebar-foreground": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "sidebar-primary": {
+        "$type": "color",
+        "$value": "#e93b01"
+      },
+      "sidebar-primary-foreground": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "sidebar-accent": {
+        "$type": "color",
+        "$value": "#e0dfd6"
+      },
+      "sidebar-accent-foreground": {
+        "$type": "color",
+        "$value": "#302b28"
+      },
+      "sidebar-border": {
+        "$type": "color",
+        "$value": "#deddd4"
+      },
+      "sidebar-ring": {
         "$type": "color",
         "$value": "#a8a399"
       }

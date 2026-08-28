@@ -5,7 +5,7 @@
 # Hologram Brand System
 
 The visual identity of Hologram: logos, color, typography, tokens, and a complete
-component library. Warm ground `#151312`, one accent `#e93b01`.
+component library. Warm ground `#151312`, one brand accent `#e93b01`.
 
 [gethologram.ai](https://gethologram.ai) · [Hologram OS](https://github.com/Hologram-Technologies/hologram-os)
 
@@ -43,8 +43,9 @@ and print.
 
 [![Hologram Palette](brand/public/Hologram_Palette.svg)](brand/public/Hologram_Palette.svg)
 
-The accent is the only saturated color in the system apart from destructive,
-and it appears once per view at most.
+The brand accent is the only saturated color in the system apart from
+destructive, and it appears once per view at most. The accent role itself is
+a quiet surface, as the component library expects.
 
 ### Dark
 
@@ -60,7 +61,8 @@ as alpha whites.
 | ![#e7e5e3](brand/colors/swatches/e7e5e3.svg) | `color.primary` | `#e7e5e3` | 231, 229, 227 |
 | ![#282624](brand/colors/swatches/282624.svg) | `color.secondary` | `#282624` | 40, 38, 36 |
 | ![#282624](brand/colors/swatches/282624.svg) | `color.muted` | `#282624` | 40, 38, 36 |
-| ![#e93b01](brand/colors/swatches/e93b01.svg) | `color.accent` | `#e93b01` | 233, 59, 1 |
+| ![#282624](brand/colors/swatches/282624.svg) | `color.accent` | `#282624` | 40, 38, 36 |
+| ![#e93b01](brand/colors/swatches/e93b01.svg) | `color.brand` | `#e93b01` | 233, 59, 1 |
 | ![#ff6467](brand/colors/swatches/ff6467.svg) | `color.destructive` | `#ff6467` | 255, 100, 103 |
 | ![#ffffff1a](brand/colors/swatches/ffffff1a.svg) | `color.border` | `#ffffff1a` | 255, 255, 255, 10% |
 | ![#ffffff26](brand/colors/swatches/ffffff26.svg) | `color.input` | `#ffffff26` | 255, 255, 255, 15% |
@@ -79,7 +81,8 @@ Warm paper for documents, print, and light surfaces.
 | ![#302b28](brand/colors/swatches/302b28.svg) | `color.primary` | `#302b28` | 48, 43, 40 |
 | ![#eae9e1](brand/colors/swatches/eae9e1.svg) | `color.secondary` | `#eae9e1` | 234, 233, 225 |
 | ![#eae9e1](brand/colors/swatches/eae9e1.svg) | `color.muted` | `#eae9e1` | 234, 233, 225 |
-| ![#e93b01](brand/colors/swatches/e93b01.svg) | `color.accent` | `#e93b01` | 233, 59, 1 |
+| ![#e0dfd6](brand/colors/swatches/e0dfd6.svg) | `color.accent` | `#e0dfd6` | 224, 223, 214 |
+| ![#e93b01](brand/colors/swatches/e93b01.svg) | `color.brand` | `#e93b01` | 233, 59, 1 |
 | ![#e7000b](brand/colors/swatches/e7000b.svg) | `color.destructive` | `#e7000b` | 231, 0, 11 |
 | ![#deddd4](brand/colors/swatches/deddd4.svg) | `color.border` | `#deddd4` | 222, 221, 212 |
 | ![#deddd4](brand/colors/swatches/deddd4.svg) | `color.input` | `#deddd4` | 222, 221, 212 |
@@ -107,15 +110,19 @@ text never below 14px, and nothing on any surface is smaller than 14px.
 
 ## Components
 
-[![Hologram Components](brand/public/Hologram_Components.svg)](brand/public/Hologram_Components.svg)
+[![Hologram Library](brand/public/Hologram_Library.png)](https://hologram-technologies.github.io/hologram-brand-kit/)
+
+The entire library, live: [hologram-technologies.github.io/hologram-brand-kit](https://hologram-technologies.github.io/hologram-brand-kit/)
+
+All 61 components of the vendored library render in the brand theme; a build
+gate fails if any component is missing from the showcase. Run it locally with
+`npm install` and `npm run dev` in [brand/showcase](brand/showcase).
 
 The brand theme for the web: [hologram-warm.css](brand/css/hologram-warm.css),
 standard shadcn variable names, drop in and add the `dark` class for the dark
-ground. A complete UI component library ships under
-[brand/vendor](brand/vendor/shadcn-ui), MIT licensed: 62 core components,
-charts, blocks, and themes, bound to the same token source as this document.
-The neutral baseline theme remains at
-[hologram-theme.css](brand/css/hologram-theme.css).
+ground. The library source ships under [brand/vendor](brand/vendor/shadcn-ui),
+MIT licensed, bound to the same token source as this document. The neutral
+baseline theme remains at [hologram-theme.css](brand/css/hologram-theme.css).
 
 
 ## Voice
