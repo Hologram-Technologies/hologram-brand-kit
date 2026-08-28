@@ -90,6 +90,10 @@ All 61 components of the vendored library render in the brand theme; a build
 gate fails if any component is missing from the showcase. Run it locally with
 `npm install` and `npm run dev` in [brand/showcase](brand/showcase).
 
+Product specs, user journeys, and live wireframes live in
+[brand/product](brand/product); the screens render at
+[the screens index](https://hologram-technologies.github.io/hologram-brand-kit/#/screens).
+
 The brand theme for the web: [hologram-warm.css](brand/css/hologram-warm.css),
 standard shadcn variable names, drop in and add the `dark` class for the dark
 ground. The library source ships under [brand/vendor](brand/vendor/shadcn-ui),

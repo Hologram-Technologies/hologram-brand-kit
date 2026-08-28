@@ -23,3 +23,29 @@ if (missing.length) {
   process.exit(1);
 }
 console.log(`completeness: ${components.length}/${components.length} vendored components imported`);
+
+// ---- product gate: every registered screen belongs to a complete spec ----
+import { existsSync } from "node:fs";
+const productDir = join(here, "..", "..", "product");
+const registry = readFileSync(join(srcDir, "screens", "index.ts"), "utf8");
+const entries = [...registry.matchAll(/feature:\s*"([^"]+)",\s*screen:\s*"([^"]+)"/g)]
+  .map((m) => ({ feature: m[1], screen: m[2] }));
+const failures = [];
+for (const { feature, screen } of entries) {
+  const specPath = join(productDir, feature, "spec.md");
+  if (!existsSync(specPath)) {
+    failures.push(`${feature}: missing brand/product/${feature}/spec.md`);
+    continue;
+  }
+  const spec = readFileSync(specPath, "utf8");
+  if (!spec.includes(`/screens/${feature}/${screen}`))
+    failures.push(`${feature}/${screen}: registered in code but not referenced by the spec`);
+  if (process.env.HOLO_SHOOTING !== "1" &&
+      !existsSync(join(productDir, feature, "screens", `${screen}.png`)))
+    failures.push(`${feature}/${screen}: screenshot missing (run scripts/shoot-screens.mjs)`);
+}
+if (failures.length) {
+  console.error("PRODUCT GATE FAILED:\n  " + failures.join("\n  "));
+  process.exit(1);
+}
+console.log(`product: ${entries.length} screens, every one specced${process.env.HOLO_SHOOTING === "1" ? " (image check deferred)" : " and shot"}`);
