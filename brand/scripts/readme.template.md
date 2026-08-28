@@ -59,8 +59,16 @@ Warm paper for documents, print, and light surfaces.
 
 {{PAPER_TABLE}}
 
-A neutral baseline (the unmodified upstream theme) and eight alternative
+A neutral baseline (the upstream theme) and eight alternative
 neutral bases ship alongside in [brand/tokens](brand/tokens).
+
+Three tokens deliberately diverge from the shadcn base, in every theme and
+variant. `success` and `success-foreground` exist because shadcn ships no
+positive color and Hologram surfaces need one. Light `sidebar-primary` is
+the brand blue `#1447e6` because dark already carries it and light mode
+must keep link and tag affordances. `muted-foreground-subtle` is a second
+gray step for tertiary text. The css generator's `--check` asserts each
+divergence exactly.
 
 
 ## Typography

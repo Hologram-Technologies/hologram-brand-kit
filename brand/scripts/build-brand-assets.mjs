@@ -30,7 +30,8 @@ function resolveRef(value) {
 }
 
 const SEMANTIC = ["background", "foreground", "card", "popover", "primary",
-  "secondary", "muted", "accent", "destructive", "border", "input", "ring"];
+  "secondary", "muted", "accent", "destructive", "success",
+  "muted-foreground-subtle", "border", "input", "ring"];
 
 function palette(setName) {
   return SEMANTIC.map((name) => {
@@ -66,18 +67,21 @@ function contrast(a, b) {
 
 function verifyContrast() {
   const failures = [];
-  for (const setName of ["hologram-dark", "hologram-light"]) {
+  for (const setName of ["hologram-dark", "hologram-light", "dark", "light"]) {
     const bg = color(setName, "background");
-    for (const role of ["foreground", "muted-foreground"]) {
+    for (const role of ["foreground", "muted-foreground", "success"]) {
       const c = contrast(color(setName, role), bg);
       if (c < 4.5) failures.push(`${setName}/${role} on background: ${c.toFixed(2)} < 4.5`);
     }
+    // The subtle gray is tertiary text by contract: AA-large floor.
+    const s = contrast(color(setName, "muted-foreground-subtle"), bg);
+    if (s < 3.0) failures.push(`${setName}/muted-foreground-subtle on background: ${s.toFixed(2)} < 3.0`);
   }
   if (failures.length) {
     console.error("WCAG AA GATE FAILED:\n" + failures.join("\n"));
     process.exit(1);
   }
-  console.log("contrast: AA passes for body text in both hologram modes");
+  console.log("contrast: AA passes for body text in all four modes (subtle gray at AA-large)");
 }
 
 // --------------------------------------------------------- canonical logo art

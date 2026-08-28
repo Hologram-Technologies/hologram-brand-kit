@@ -89,15 +89,28 @@ if (process.argv.includes("--check")) {
     readFileSync(join(here, "..", "tokens", "source", "shadcn-neutral.json"), "utf8"));
   const failures = [];
   let total = 0;
+  // Deliberate brand divergences from the shadcn registry, asserted
+  // EXACTLY — a checked contract, never drift. Rationale lives beside
+  // BRAND_EXTENSIONS in shadcn-to-dtcg.mjs.
+  const DIVERGENT = { "light/sidebar-primary": "#1447e6" };
   for (const mode of ["light", "dark"]) {
     const emitted = cssVarsOf(mode);
     for (const [name, oklch] of Object.entries(source.cssVarsV4[mode])) {
       if (name === "radius") continue;
       total++;
-      if (emitted[name] !== oklchToHex(oklch))
-        failures.push(`${mode}/${name}: emitted ${emitted[name]}, registry says ${oklchToHex(oklch)}`);
+      const expected = DIVERGENT[`${mode}/${name}`] ?? oklchToHex(oklch);
+      if (emitted[name] !== expected)
+        failures.push(`${mode}/${name}: emitted ${emitted[name]}, expected ${expected}`);
     }
   }
+  // Presence gate: the brand-extension roles must exist in every set, so
+  // a future variant or theme cannot ship without them.
+  for (const setName of ["light", "dark", "hologram-light", "hologram-dark"])
+    for (const role of ["success", "success-foreground", "muted-foreground-subtle"])
+      if (!cssVarsOf(setName)[role]) {
+        total++;
+        failures.push(`${setName}/${role}: missing brand-extension token`);
+      }
   if (failures.length) {
     console.error("ROUND-TRIP PARITY FAILED:\n" + failures.join("\n"));
     process.exit(1);

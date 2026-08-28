@@ -85,6 +85,55 @@ const CORE = [
   ["blue.700",    "oklch(0.488 0.243 264.376)",   "#1447e6"],
 ];
 
+// Brand green ramp — hex anchors (the same convention the HOLOGRAM layer
+// uses for its measured brand values), seeded so the DARK success token
+// lands on #5fd18b and LIGHT on #1f7a4d: both proven AA in production
+// (hologram-live desktop) before promotion into the kit.
+const CORE_HEX = [
+  ["green.50",  "#eefaf2"],
+  ["green.100", "#d8f3e2"],
+  ["green.200", "#b3e8c8"],
+  ["green.300", "#89dcaa"],
+  ["green.400", "#5fd18b"],
+  ["green.500", "#3bbf70"],
+  ["green.600", "#2b9e5c"],
+  ["green.700", "#1f7a4d"],
+  ["green.800", "#175f3d"],
+  ["green.900", "#10462e"],
+];
+
+// ---- brand extensions: deliberate, checked divergences from shadcn ------
+// (1) success family — shadcn ships no positive token; every Hologram
+//     surface needs one (READY badges, verification, health dots).
+// (2) light sidebar-primary — shadcn's light value is neutral while dark
+//     carries blue #1447e6, so light mode lost link/tag affordances.
+//     One blue, both modes.
+// (3) muted-foreground-subtle — a second, quieter gray step. Dark aliases
+//     neutral.500 (one step darker than muted-foreground). Light sits
+//     between neutral.400 and .500 as a hex anchor: neutral.400 on white
+//     is 2.58 contrast, below the AA-large floor the asset gate enforces.
+// The css emitter's --check asserts these exactly (declared divergences,
+// never drift); the asset contrast gate covers the new roles.
+const BRAND_EXTENSIONS = {
+  dark: {
+    "success":                 { ref: "{core.green.400}",   hex: "#5fd18b" },
+    "success-foreground":      { ref: "{core.neutral.900}", hex: "#171717" },
+    "muted-foreground-subtle": { ref: "{core.neutral.500}", hex: "#737373" },
+  },
+  light: {
+    "success":                 { ref: "{core.green.700}",   hex: "#1f7a4d" },
+    "success-foreground":      { ref: "{core.white}",       hex: "#ffffff" },
+    "muted-foreground-subtle": { ref: "#8a8a8a",            hex: "#8a8a8a" },
+    "sidebar-primary":         { ref: "{core.blue.700}",    hex: "#1447e6" },
+  },
+};
+
+function applyBrandExtensions(out, mode, useCore) {
+  for (const [name, v] of Object.entries(BRAND_EXTENSIONS[mode]))
+    set(out, `color.${name}`, { $type: "color", $value: useCore ? v.ref : v.hex });
+  return out;
+}
+
 function hexDist(a, b) {
   let d = 0;
   for (let i = 1; i < 7; i += 2)
@@ -134,7 +183,7 @@ function set(obj, path, value) {
   node[parts.at(-1)] = value;
 }
 
-function buildSemanticSet(vars, { useCore = true } = {}) {
+function buildSemanticSet(vars, mode, { useCore = true } = {}) {
   const out = {};
   for (const [name, value] of Object.entries(vars)) {
     if (name === "radius") continue; // mode-independent, lives in global
@@ -143,7 +192,7 @@ function buildSemanticSet(vars, { useCore = true } = {}) {
     set(out, `color.${name}`,
       { $type: "color", $value: useCore ? semanticValue(value) : oklchToHex(value) });
   }
-  return out;
+  return applyBrandExtensions(out, mode, useCore);
 }
 
 function px(n) { return `${n}px`; }
@@ -172,6 +221,9 @@ const HOLOGRAM = {
     "accent":               "#e93b01",
     "accent-foreground":    "#ffffff",
     "destructive":          "oklch(0.704 0.191 22.216)",
+    "success":              "#5fd18b",
+    "success-foreground":   "#171717",
+    "muted-foreground-subtle": "oklch(0.56 0.004 60)",
     "border":               "oklch(1 0 0 / 10%)",
     "input":                "oklch(1 0 0 / 15%)",
     "ring":                 "oklch(0.556 0.004 60)",
@@ -192,6 +244,9 @@ const HOLOGRAM = {
     "accent":               "#e93b01",
     "accent-foreground":    "#ffffff",
     "destructive":          "oklch(0.577 0.245 27.325)",
+    "success":              "#1f7a4d",
+    "success-foreground":   "#ffffff",
+    "muted-foreground-subtle": "#8a857e",
     "border":               "#deddd4",
     "input":                "#deddd4",
     "ring":                 "#a8a399",
@@ -214,6 +269,8 @@ function main(source) {
   const core = {};
   for (const [name, oklch] of CORE)
     set(core, `core.${name}`, { $type: "color", $value: oklchToHex(oklch) });
+  for (const [name, hex] of CORE_HEX)
+    set(core, `core.${name}`, { $type: "color", $value: hex });
 
   // --radius: 0.625rem = 10px; shadcn derives sm/md/lg/xl from it in CSS calc.
   const radiusBase = parseFloat(light.radius) * 16;
@@ -251,8 +308,8 @@ function main(source) {
   const tokens = {
     core: core.core,
     global,
-    light: buildSemanticSet(light),
-    dark: buildSemanticSet(dark),
+    light: buildSemanticSet(light, "light"),
+    dark: buildSemanticSet(dark, "dark"),
     "hologram-dark": buildHologramSet(HOLOGRAM.dark),
     "hologram-light": buildHologramSet(HOLOGRAM.light),
     $themes: [
@@ -299,8 +356,8 @@ function buildVariants(global) {
     const { cssVarsV4 } = JSON.parse(readFileSync(join(colorsDir, `${name}.json`), "utf8"));
     const tokens = {
       global,
-      light: buildSemanticSet(cssVarsV4.light, { useCore: false }),
-      dark: buildSemanticSet(cssVarsV4.dark, { useCore: false }),
+      light: buildSemanticSet(cssVarsV4.light, "light", { useCore: false }),
+      dark: buildSemanticSet(cssVarsV4.dark, "dark", { useCore: false }),
       $themes: ["light", "dark"].map((mode) => ({
         name: mode,
         description: `shadcn/ui ${mode} mode (${name} base)`,

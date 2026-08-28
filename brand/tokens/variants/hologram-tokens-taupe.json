@@ -259,7 +259,7 @@
       },
       "sidebar-primary": {
         "$type": "color",
-        "$value": "#1d1816"
+        "$value": "#1447e6"
       },
       "sidebar-primary-foreground": {
         "$type": "color",
@@ -280,6 +280,18 @@
       "sidebar-ring": {
         "$type": "color",
         "$value": "#aba09c"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#1f7a4d"
+      },
+      "success-foreground": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "muted-foreground-subtle": {
+        "$type": "color",
+        "$value": "#8a8a8a"
       }
     }
   },
@@ -408,6 +420,18 @@
       "sidebar-ring": {
         "$type": "color",
         "$value": "#7c6d67"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#5fd18b"
+      },
+      "success-foreground": {
+        "$type": "color",
+        "$value": "#171717"
+      },
+      "muted-foreground-subtle": {
+        "$type": "color",
+        "$value": "#737373"
       }
     }
   },
