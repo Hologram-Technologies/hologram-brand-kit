@@ -32,6 +32,12 @@ brand/
     build-brand-assets.mjs       # tokens → logos, swatches, sheets, root README
     readme.template.md           # template for the root README (color tables injected)
     render-png.mjs               # logo SVG → PNG (needs @resvg/resvg-js, not a repo dep)
+  showcase/                      # Vite app rendering ALL 61 ui components in the
+                                 #   brand theme; completeness gate in scripts/;
+                                 #   deployed to GitHub Pages from the gh-pages branch
+                                 #   (build: npm run build · deploy: push dist to gh-pages)
+                                 #   ⚠ needs brand/node_modules junction → showcase/node_modules
+                                 #   (git-excluded) so vendor files resolve deps
   vendor/shadcn-ui/              # complete shadcn/ui registry, pinned (see VENDOR.md):
                                  #   62 ui components, charts, blocks, examples,
                                  #   3 primitive bases (radix/base/aria), 8 styles,

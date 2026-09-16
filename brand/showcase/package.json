@@ -1,0 +1,44 @@
+{
+  "name": "hologram-showcase",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "The Hologram design system rendered whole: every vendored component in the brand theme.",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/check-completeness.mjs && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@base-ui/react": "latest",
+    "@shadcn/react": "latest",
+    "class-variance-authority": "latest",
+    "clsx": "latest",
+    "cmdk": "latest",
+    "embla-carousel-react": "latest",
+    "input-otp": "latest",
+    "lucide-react": "latest",
+    "next-themes": "latest",
+    "radix-ui": "latest",
+    "react": "^19.0.0",
+    "react-day-picker": "latest",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "latest",
+    "react-resizable-panels": "latest",
+    "recharts": "latest",
+    "shadcn": "latest",
+    "sonner": "latest",
+    "tailwind-merge": "latest",
+    "vaul": "latest"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "latest",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "latest",
+    "tailwindcss": "latest",
+    "tw-animate-css": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  }
+}
