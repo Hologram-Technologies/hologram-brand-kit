@@ -153,6 +153,32 @@
           "$value": "0.22em"
         }
       }
+    },
+    "border": {
+      "width": {
+        "$type": "borderWidth",
+        "$value": "1px"
+      }
+    },
+    "focus": {
+      "ring-width": {
+        "$type": "borderWidth",
+        "$value": "2px"
+      },
+      "ring-offset": {
+        "$type": "dimension",
+        "$value": "2px"
+      }
+    },
+    "motion": {
+      "duration": {
+        "$type": "string",
+        "$value": "120ms"
+      },
+      "ease": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.2, 0, 0, 1)"
+      }
     }
   },
   "light": {
@@ -292,6 +318,101 @@
       "muted-foreground-subtle": {
         "$type": "color",
         "$value": "#8a8a8a"
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#c73403"
+      },
+      "warning-foreground": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "destructive-foreground": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "info": {
+        "$type": "color",
+        "$value": "#67787c"
+      },
+      "link": {
+        "$type": "color",
+        "$value": "#090b0c"
+      },
+      "link-hover": {
+        "$type": "color",
+        "$value": "#161b1d"
+      },
+      "destructive-subtle": {
+        "$type": "color",
+        "$value": "#fcdbdd"
+      },
+      "destructive-border": {
+        "$type": "color",
+        "$value": "#f5999d"
+      },
+      "warning-subtle": {
+        "$type": "color",
+        "$value": "#f7e3dc"
+      },
+      "warning-border": {
+        "$type": "color",
+        "$value": "#e9ae9a"
+      },
+      "success-subtle": {
+        "$type": "color",
+        "$value": "#e0ece6"
+      },
+      "success-border": {
+        "$type": "color",
+        "$value": "#a5cab8"
+      },
+      "info-subtle": {
+        "$type": "color",
+        "$value": "#f1f3f3"
+      },
+      "info-border": {
+        "$type": "color",
+        "$value": "#e3e7e8"
+      },
+      "primary-hover": {
+        "$type": "color",
+        "$value": "#323638"
+      },
+      "accent-pressed": {
+        "$type": "color",
+        "$value": "#dee0e1"
+      },
+      "border-solid": {
+        "$type": "color",
+        "$value": "#e3e7e8"
+      },
+      "border-strong": {
+        "$type": "color",
+        "$value": "#e3e7e8"
+      },
+      "scrim": {
+        "$type": "color",
+        "$value": "#0a0a0a59"
+      },
+      "shadow": {
+        "$type": "color",
+        "$value": "#0a0a0a2e"
+      }
+    },
+    "shadow": {
+      "overlay": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "offsetX": "0",
+            "offsetY": "16",
+            "blur": "40",
+            "spread": "-12",
+            "color": "#0a0a0a2e",
+            "inset": false
+          }
+        ]
       }
     }
   },
@@ -432,6 +553,101 @@
       "muted-foreground-subtle": {
         "$type": "color",
         "$value": "#737373"
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#ed6b40"
+      },
+      "warning-foreground": {
+        "$type": "color",
+        "$value": "#0a0a0a"
+      },
+      "destructive-foreground": {
+        "$type": "color",
+        "$value": "#0a0a0a"
+      },
+      "info": {
+        "$type": "color",
+        "$value": "#9ca8ab"
+      },
+      "link": {
+        "$type": "color",
+        "$value": "#f9fbfb"
+      },
+      "link-hover": {
+        "$type": "color",
+        "$value": "#e3e7e8"
+      },
+      "destructive-subtle": {
+        "$type": "color",
+        "$value": "#372527"
+      },
+      "destructive-border": {
+        "$type": "color",
+        "$value": "#73383b"
+      },
+      "warning-subtle": {
+        "$type": "color",
+        "$value": "#342622"
+      },
+      "warning-border": {
+        "$type": "color",
+        "$value": "#6c3b2b"
+      },
+      "success-subtle": {
+        "$type": "color",
+        "$value": "#20342c"
+      },
+      "success-border": {
+        "$type": "color",
+        "$value": "#336449"
+      },
+      "info-subtle": {
+        "$type": "color",
+        "$value": "#22292b"
+      },
+      "info-border": {
+        "$type": "color",
+        "$value": "#2e3234"
+      },
+      "primary-hover": {
+        "$type": "color",
+        "$value": "#c9cdce"
+      },
+      "accent-pressed": {
+        "$type": "color",
+        "$value": "#333a3c"
+      },
+      "border-solid": {
+        "$type": "color",
+        "$value": "#222425"
+      },
+      "border-strong": {
+        "$type": "color",
+        "$value": "#2e2f30"
+      },
+      "scrim": {
+        "$type": "color",
+        "$value": "#0a0a0a99"
+      },
+      "shadow": {
+        "$type": "color",
+        "$value": "#0a0a0a8c"
+      }
+    },
+    "shadow": {
+      "overlay": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "offsetX": "0",
+            "offsetY": "16",
+            "blur": "40",
+            "spread": "-12",
+            "color": "#0a0a0a8c",
+            "inset": false
+          }
+        ]
       }
     }
   },

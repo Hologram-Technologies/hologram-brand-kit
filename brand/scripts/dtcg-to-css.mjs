@@ -13,7 +13,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { oklchToHex } from "./shadcn-to-dtcg.mjs";
+import { oklchToHex, STATE_ROLES } from "./shadcn-to-dtcg.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const tokens = JSON.parse(readFileSync(join(here, "..", "tokens", "hologram-tokens.json"), "utf8"));
@@ -36,6 +36,21 @@ function cssVarsOf(setName) {
   return out;
 }
 
+// The single elevation of a set, as a CSS box-shadow value.
+function shadowOf(setName) {
+  const [s] = tokens[setName].shadow.overlay.$value;
+  return `${s.offsetX}px ${s.offsetY}px ${s.blur}px ${s.spread}px ${s.color}`.replace(/\b0px/g, "0");
+}
+
+// Mode independent constants: hairline, keyboard focus, motion.
+const constants = {
+  "border-width": tokens.global.border.width.$value,
+  "ring-width": tokens.global.focus["ring-width"].$value,
+  "ring-offset": tokens.global.focus["ring-offset"].$value,
+  duration: tokens.global.motion.duration.$value,
+  ease: tokens.global.motion.ease.$value,
+};
+
 function block(selector, vars, extra = {}) {
   const lines = Object.entries({ ...vars, ...extra })
     .map(([k, v]) => `  --${k}: ${v};`)
@@ -54,9 +69,11 @@ ${block(":root", cssVarsOf("light"), {
   radius: radiusRem,
   "font-sans": tokens.global.font.family.sans.$value,
   "font-mono": tokens.global.font.family.mono.$value,
+  ...constants,
+  "shadow-overlay": shadowOf("light"),
 })}
 
-${block(".dark", cssVarsOf("dark"))}
+${block(".dark", cssVarsOf("dark"), { "shadow-overlay": shadowOf("dark") })}
 `;
 
 mkdirSync(dirname(outPath), { recursive: true });
@@ -77,9 +94,11 @@ ${block(":root", cssVarsOf("hologram-light"), {
   "font-mono": tokens.global.font.family.mono.$value,
   "tracking-display": tokens.global.font.tracking.display.$value,
   "tracking-caps": tokens.global.font.tracking.caps.$value,
+  ...constants,
+  "shadow-overlay": shadowOf("hologram-light"),
 })}
 
-${block(".dark", cssVarsOf("hologram-dark"))}
+${block(".dark", cssVarsOf("hologram-dark"), { "shadow-overlay": shadowOf("hologram-dark") })}
 `;
 writeFileSync(warmPath, warmCss);
 console.log(`wrote ${warmPath}`);
@@ -106,7 +125,7 @@ if (process.argv.includes("--check")) {
   // Presence gate: the brand-extension roles must exist in every set, so
   // a future variant or theme cannot ship without them.
   for (const setName of ["light", "dark", "hologram-light", "hologram-dark"])
-    for (const role of ["success", "success-foreground", "muted-foreground-subtle"])
+    for (const role of ["success", "success-foreground", "muted-foreground-subtle", ...STATE_ROLES])
       if (!cssVarsOf(setName)[role]) {
         total++;
         failures.push(`${setName}/${role}: missing brand-extension token`);

@@ -71,6 +71,24 @@ must keep link and tag affordances. `muted-foreground-subtle` is a second
 gray step for tertiary text. The css generator's `--check` asserts each
 divergence exactly.
 
+A second family is derived, never hand picked: the state, link and
+elevation roles a full product needs and shadcn does not ship. The generator
+computes each from the roles of its own set by a written rule, so every
+theme and variant gets values that fit its ground. `warning` is the brand
+accent pulled toward the text color until it reads at AA on background, card
+and muted. `info` is muted text and `link` is the text color, because
+information is quiet and links are marked by an underline. A status panel
+takes `destructive-subtle`, `warning-subtle` or `success-subtle` as its
+ground and the matching `border` role as its hairline. `primary-hover` and
+`accent-pressed` are the two interaction steps. `border-solid` and
+`border-strong` serve places that cannot take alpha. `scrim` sits behind
+dialogs. There is one elevation, `shadow.overlay`, for surfaces that float
+over content, and cards separate from the ground by a hairline instead.
+Hairline width, focus ring and motion are single global values under
+`border`, `focus` and `motion`. The contrast gate holds the new roles to AA.
+The orange is a mark, not a ground for text: `brand-foreground` on `brand`
+measures 4.13, so use it for indicators and never behind body copy.
+
 
 ## Typography
 

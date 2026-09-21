@@ -134,6 +134,124 @@ function applyBrandExtensions(out, mode, useCore) {
   return out;
 }
 
+// ---- state, link and elevation roles: DERIVED, never hand picked ---------
+// Wiring the kit into a full application (the UOR Developer Portal: three
+// styling systems, 66 audited places, dark and light) showed which roles a
+// real product needs and shadcn does not ship: a warning, quiet info, link,
+// hover and pressed steps, the subtle ground and hairline of a status
+// panel, flattened borders for places that cannot take alpha, a scrim, and
+// ONE elevation. Each is computed from the roles of its own set by a
+// written rule, so every set (baseline, warm, all variants) gets values
+// that fit its ground, and the contrast gate can hold them to AA.
+const BRAND_ACCENT = "#e93b01";
+
+function rgbOf(hex) {
+  const h = hex.slice(1);
+  return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16))
+    .concat(h.length === 8 ? parseInt(h.slice(6, 8), 16) / 255 : 1);
+}
+function hexOf([r, g, b]) {
+  return "#" + [r, g, b].map((x) => Math.round(x).toString(16).padStart(2, "0")).join("");
+}
+function flattenOver(top, under) {
+  const [r, g, b, a] = rgbOf(top);
+  const u = rgbOf(under);
+  return hexOf([r * a + u[0] * (1 - a), g * a + u[1] * (1 - a), b * a + u[2] * (1 - a)]);
+}
+function mixHex(a, b, t) {
+  const x = rgbOf(a), y = rgbOf(b);
+  return hexOf([0, 1, 2].map((i) => x[i] * (1 - t) + y[i] * t));
+}
+function lumOf(hex) {
+  const [r, g, b] = rgbOf(hex).slice(0, 3).map((v) => v / 255)
+    .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+function contrastOf(a, b) {
+  const [hi, lo] = [lumOf(a), lumOf(b)].sort((p, q) => q - p);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+let coreHexMap = null;
+function coreHex(name) {
+  coreHexMap ??= new Map([
+    ...CORE.map(([n, o]) => [n, oklchToHex(o)]),
+    ...CORE_HEX,
+  ]);
+  return coreHexMap.get(name);
+}
+
+function applyStateTokens(out, mode) {
+  // Read the set's own roles as hex, whatever form they were written in.
+  const c = {};
+  for (const [name, node] of Object.entries(out.color)) {
+    const ref = /^\{core\.(.+)\}$/.exec(node.$value);
+    c[name] = ref ? coreHex(ref[1]) : node.$value;
+  }
+  const ink = coreHex("neutral.950");
+  const card = flattenOver(c.card, c.background);
+  const muted = flattenOver(c.muted, c.background);
+  const d = {};
+
+  // warning: the brand accent pulled toward the text colour, in 5% steps,
+  // until it reads at AA on background, card and muted.
+  const reads = (col) => [c.background, card, muted].every((g) => contrastOf(col, g) >= 4.5);
+  let warning = BRAND_ACCENT;
+  for (let t = 0; t <= 0.8 && !reads(warning); t += 0.05) warning = mixHex(BRAND_ACCENT, c.foreground, t);
+  d["warning"] = warning;
+
+  // text on a solid status colour: the best of four candidates.
+  const onColor = (base) => [c.background, c.foreground, coreHex("white"), ink]
+    .reduce((best, cand) => (contrastOf(cand, base) > contrastOf(best, base) ? cand : best));
+  d["warning-foreground"] = onColor(warning);
+  d["destructive-foreground"] = onColor(flattenOver(c.destructive, c.background));
+
+  // information is quiet, never a colour; links are marked by an underline.
+  d["info"] = c["muted-foreground"];
+  d["link"] = c.foreground;
+  d["link-hover"] = c.primary;
+
+  // a status panel: the status at 14% over card is its ground, at 40% its hairline.
+  for (const [role, base] of [["destructive", c.destructive], ["warning", warning], ["success", c.success]]) {
+    const solid = flattenOver(base, c.background);
+    d[`${role}-subtle`] = mixHex(solid, card, 0.86);
+    d[`${role}-border`] = mixHex(solid, card, 0.6);
+  }
+  d["info-subtle"] = flattenOver(c.secondary, c.background);
+  d["info-border"] = flattenOver(c.border, card);
+
+  // interaction steps.
+  d["primary-hover"] = mixHex(flattenOver(c.primary, c.background), c.background, 0.12);
+  d["accent-pressed"] = mixHex(flattenOver(c.accent, c.background), c.foreground, 0.08);
+
+  // borders for places that cannot take alpha (SVG strokes, some canvases).
+  d["border-solid"] = flattenOver(c.border, c.background);
+  d["border-strong"] = flattenOver(c.input, c.background);
+
+  // behind dialogs, and the colour of the one elevation.
+  const alphaHex = (a) => Math.round(a * 255).toString(16).padStart(2, "0");
+  d["scrim"] = ink + alphaHex(mode === "dark" ? 0.6 : 0.35);
+  d["shadow"] = ink + alphaHex(mode === "dark" ? 0.55 : 0.18);
+
+  for (const [name, hex] of Object.entries(d))
+    set(out, `color.${name}`, { $type: "color", $value: hex });
+
+  // ONE elevation, for surfaces that float over content (menus, dialogs,
+  // popovers). Cards separate from the ground by a hairline, not a shadow.
+  set(out, "shadow.overlay", {
+    $type: "shadow",
+    $value: [{ offsetX: "0", offsetY: "16", blur: "40", spread: "-12", color: d["shadow"], inset: false }],
+  });
+  return out;
+}
+
+export const STATE_ROLES = [
+  "warning", "warning-foreground", "destructive-foreground", "info", "link", "link-hover",
+  "destructive-subtle", "destructive-border", "warning-subtle", "warning-border",
+  "success-subtle", "success-border", "info-subtle", "info-border",
+  "primary-hover", "accent-pressed", "border-solid", "border-strong", "scrim", "shadow",
+];
+
 function hexDist(a, b) {
   let d = 0;
   for (let i = 1; i < 7; i += 2)
@@ -192,7 +310,7 @@ function buildSemanticSet(vars, mode, { useCore = true } = {}) {
     set(out, `color.${name}`,
       { $type: "color", $value: useCore ? semanticValue(value) : oklchToHex(value) });
   }
-  return applyBrandExtensions(out, mode, useCore);
+  return applyStateTokens(applyBrandExtensions(out, mode, useCore), mode);
 }
 
 function px(n) { return `${n}px`; }
@@ -283,13 +401,13 @@ const HOLOGRAM = {
   },
 };
 
-function buildHologramSet(vars) {
+function buildHologramSet(vars, mode) {
   const out = {};
   for (const [name, value] of Object.entries(vars)) {
     const hex = value.startsWith("oklch") ? oklchToHex(value) : value;
     set(out, `color.${name}`, { $type: "color", $value: hex });
   }
-  return out;
+  return applyStateTokens(out, mode);
 }
 
 function main(source) {
@@ -333,6 +451,16 @@ function main(source) {
         caps: { $type: "letterSpacing", $value: "0.22em" },
       },
     },
+    // Hairline, keyboard focus and motion: one value each, so every surface agrees.
+    border: { width: { $type: "borderWidth", $value: px(1) } },
+    focus: {
+      "ring-width": { $type: "borderWidth", $value: px(2) },
+      "ring-offset": { $type: "dimension", $value: px(2) },
+    },
+    motion: {
+      duration: { $type: "string", $value: "120ms" },
+      ease: { $type: "string", $value: "cubic-bezier(0.2, 0, 0, 1)" },
+    },
   };
 
   const tokens = {
@@ -340,8 +468,8 @@ function main(source) {
     global,
     light: buildSemanticSet(light, "light"),
     dark: buildSemanticSet(dark, "dark"),
-    "hologram-dark": buildHologramSet(HOLOGRAM.dark),
-    "hologram-light": buildHologramSet(HOLOGRAM.light),
+    "hologram-dark": buildHologramSet(HOLOGRAM.dark, "dark"),
+    "hologram-light": buildHologramSet(HOLOGRAM.light, "light"),
     $themes: [
       {
         name: "hologram-dark",
