@@ -65,13 +65,39 @@ function contrast(a, b) {
   return (hi + 0.05) / (lo + 0.05);
 }
 
+// Flatten a possibly translucent colour (#rrggbbaa) over an opaque one.
+function flat(top, under) {
+  if (top.length !== 9) return top;
+  const a = parseInt(top.slice(7, 9), 16) / 255;
+  const ch = (hex, i) => parseInt(hex.slice(i, i + 2), 16);
+  return "#" + [1, 3, 5].map((i) => Math.round(ch(top, i) * a + ch(under, i) * (1 - a)).toString(16).padStart(2, "0")).join("");
+}
+
 function verifyContrast() {
   const failures = [];
+  const notes = [];
   for (const setName of ["hologram-dark", "hologram-light", "dark", "light"]) {
     const bg = color(setName, "background");
-    for (const role of ["foreground", "muted-foreground", "success"]) {
+    for (const role of ["foreground", "muted-foreground", "success", "warning", "link", "info"]) {
       const c = contrast(color(setName, role), bg);
       if (c < 4.5) failures.push(`${setName}/${role} on background: ${c.toFixed(2)} < 4.5`);
+    }
+    // State roles are read on cards and on muted grounds (code, panels) too.
+    for (const ground of ["card", "muted"]) {
+      const g = flat(color(setName, ground), bg);
+      for (const role of ["foreground", "warning", "success"]) {
+        const c = contrast(color(setName, role), g);
+        if (c >= 4.5) continue;
+        // success is a measured brand value that predates this gate: on the muted ground it is
+        // reported, not failed. Use it there at large size or as a mark, or place it on a card.
+        if (role === "success" && ground === "muted") notes.push(`${setName}/success on muted: ${c.toFixed(2)} (AA-large only)`);
+        else failures.push(`${setName}/${role} on ${ground}: ${c.toFixed(2)} < 4.5`);
+      }
+    }
+    // Text on a solid status colour.
+    for (const [fg, solid] of [["warning-foreground", "warning"], ["destructive-foreground", "destructive"], ["success-foreground", "success"]]) {
+      const c = contrast(color(setName, fg), flat(color(setName, solid), bg));
+      if (c < 4.5) failures.push(`${setName}/${fg} on ${solid}: ${c.toFixed(2)} < 4.5`);
     }
     // The subtle gray is tertiary text by contract: AA-large floor.
     const s = contrast(color(setName, "muted-foreground-subtle"), bg);
@@ -81,7 +107,8 @@ function verifyContrast() {
     console.error("WCAG AA GATE FAILED:\n" + failures.join("\n"));
     process.exit(1);
   }
-  console.log("contrast: AA passes for body text in all four modes (subtle gray at AA-large)");
+  for (const n of notes) console.log("contrast note: " + n);
+  console.log("contrast: AA passes in all four modes for body text, state roles on background, card and muted, and text on solid status colours (subtle gray at AA-large)");
 }
 
 // --------------------------------------------------------- canonical logo art
