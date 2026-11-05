@@ -62,6 +62,10 @@ No dependencies — plain Node. Both scripts carry verification gates:
   palette *in* oklch; v3 hex values are close but wrong).
 - **Parity gate** — every emitted CSS variable must equal the direct conversion of
   the original shadcn registry value, both modes.
+- **Contrast gate** (`dtcg-to-css.mjs --check`) — every foreground/background pair
+  the components paint in `hologram-light` and `hologram-dark` must reach WCAG 2.x
+  4.5:1 for text and 3:1 for focus rings. `--brand` is for marks and fills;
+  text in the brand colour uses `--brand-text`.
 
 ## Import into Penpot
 

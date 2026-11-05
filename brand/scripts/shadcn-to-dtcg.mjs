@@ -322,6 +322,16 @@ function px(n) { return `${n}px`; }
 // oklch(0.72 0.004 60), accent #E93B01 (shared with groq.com, whose paper is
 // #F3F3EE with ink #302B28). oklch values go through the SAME verified
 // converter as the baseline; hex anchors are used verbatim.
+//
+// Contrast anchors (WCAG 2.x, held by dtcg-to-css.mjs --check):
+// - brand-text is the accent's hue (oklch h ~35) at a lightness that reads
+//   as text: paper #bf3100 (5.16 on paper, 5.75 on card), dark #f6613e
+//   (5.91 on ground, 5.41 on card). The accent itself (#e93b01) is a mark
+//   and fill only: 3.71 on paper, 4.49 on the dark ground.
+// - paper destructive is red.700 #c10007 (5.77 on paper); red.600 #e7000b
+//   was 4.29. Its subtle, border and foreground roles derive from it.
+// - paper ring and sidebar-ring take muted-foreground #6b6660 (5.11 on
+//   paper); #a8a399 was 2.26, under the 3:1 focus-indicator floor.
 const HOLOGRAM = {
   dark: {
     "background":           "oklch(0.19 0.004 60)",
@@ -340,6 +350,7 @@ const HOLOGRAM = {
     "accent-foreground":    "oklch(0.97 0.002 60)",
     "brand":                "#e93b01",
     "brand-foreground":     "#ffffff",
+    "brand-text":           "#f6613e",
     "destructive":          "oklch(0.704 0.191 22.216)",
     "success":              "#5fd18b",
     "success-foreground":   "#171717",
@@ -378,13 +389,14 @@ const HOLOGRAM = {
     "accent-foreground":    "#302b28",
     "brand":                "#e93b01",
     "brand-foreground":     "#ffffff",
-    "destructive":          "oklch(0.577 0.245 27.325)",
+    "brand-text":           "#bf3100",
+    "destructive":          "#c10007",
     "success":              "#1f7a4d",
     "success-foreground":   "#ffffff",
     "muted-foreground-subtle": "#8a857e",
     "border":               "#deddd4",
     "input":                "#deddd4",
-    "ring":                 "#a8a399",
+    "ring":                 "#6b6660",
     "chart-1":              "#e93b01",
     "chart-2":              "#302b28",
     "chart-3":              "#6b6660",
@@ -397,7 +409,7 @@ const HOLOGRAM = {
     "sidebar-accent":       "#e0dfd6",
     "sidebar-accent-foreground": "#302b28",
     "sidebar-border":       "#deddd4",
-    "sidebar-ring":         "#a8a399",
+    "sidebar-ring":         "#6b6660",
   },
 };
 

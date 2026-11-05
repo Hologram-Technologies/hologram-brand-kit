@@ -30,7 +30,7 @@ function resolveRef(value) {
 }
 
 const SEMANTIC = ["background", "foreground", "card", "popover", "primary",
-  "secondary", "muted", "accent", "brand", "destructive", "success",
+  "secondary", "muted", "accent", "brand", "brand-text", "destructive", "success",
   "muted-foreground-subtle", "border", "input", "ring"];
 
 function palette(setName) {

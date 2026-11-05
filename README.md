@@ -63,6 +63,7 @@ as alpha whites.
 | ![#282624](brand/colors/swatches/282624.svg) | `color.muted` | `#282624` | 40, 38, 36 |
 | ![#282624](brand/colors/swatches/282624.svg) | `color.accent` | `#282624` | 40, 38, 36 |
 | ![#e93b01](brand/colors/swatches/e93b01.svg) | `color.brand` | `#e93b01` | 233, 59, 1 |
+| ![#f6613e](brand/colors/swatches/f6613e.svg) | `color.brand-text` | `#f6613e` | 246, 97, 62 |
 | ![#ff6467](brand/colors/swatches/ff6467.svg) | `color.destructive` | `#ff6467` | 255, 100, 103 |
 | ![#5fd18b](brand/colors/swatches/5fd18b.svg) | `color.success` | `#5fd18b` | 95, 209, 139 |
 | ![#767472](brand/colors/swatches/767472.svg) | `color.muted-foreground-subtle` | `#767472` | 118, 116, 114 |
@@ -85,12 +86,13 @@ Warm paper for documents, print, and light surfaces.
 | ![#eae9e1](brand/colors/swatches/eae9e1.svg) | `color.muted` | `#eae9e1` | 234, 233, 225 |
 | ![#e0dfd6](brand/colors/swatches/e0dfd6.svg) | `color.accent` | `#e0dfd6` | 224, 223, 214 |
 | ![#e93b01](brand/colors/swatches/e93b01.svg) | `color.brand` | `#e93b01` | 233, 59, 1 |
-| ![#e7000b](brand/colors/swatches/e7000b.svg) | `color.destructive` | `#e7000b` | 231, 0, 11 |
+| ![#bf3100](brand/colors/swatches/bf3100.svg) | `color.brand-text` | `#bf3100` | 191, 49, 0 |
+| ![#c10007](brand/colors/swatches/c10007.svg) | `color.destructive` | `#c10007` | 193, 0, 7 |
 | ![#1f7a4d](brand/colors/swatches/1f7a4d.svg) | `color.success` | `#1f7a4d` | 31, 122, 77 |
 | ![#8a857e](brand/colors/swatches/8a857e.svg) | `color.muted-foreground-subtle` | `#8a857e` | 138, 133, 126 |
 | ![#deddd4](brand/colors/swatches/deddd4.svg) | `color.border` | `#deddd4` | 222, 221, 212 |
 | ![#deddd4](brand/colors/swatches/deddd4.svg) | `color.input` | `#deddd4` | 222, 221, 212 |
-| ![#a8a399](brand/colors/swatches/a8a399.svg) | `color.ring` | `#a8a399` | 168, 163, 153 |
+| ![#6b6660](brand/colors/swatches/6b6660.svg) | `color.ring` | `#6b6660` | 107, 102, 96 |
 
 A neutral baseline (the upstream theme) and eight alternative
 neutral bases ship alongside in [brand/tokens](brand/tokens).
@@ -120,6 +122,14 @@ Hairline width, focus ring and motion are single global values under
 `border`, `focus` and `motion`. The contrast gate holds the new roles to AA.
 The orange is a mark, not a ground for text: `brand-foreground` on `brand`
 measures 4.13, so use it for indicators and never behind body copy.
+`--brand` is for marks and fills; `--brand-text` is for text. `brand-text` is
+the accent's hue at a lightness that reads at AA on background, card and
+muted in both Hologram themes, where the accent itself does not (3.71 on
+paper). Paper `destructive` and `ring` are likewise set for contrast: text
+reds at 4.5 or more, the focus ring at 3 or more against every ground it
+sits on. The css generator's `--check` measures every foreground and
+background pair the components use in both Hologram themes and fails below
+those floors.
 
 
 ## Typography
