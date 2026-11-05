@@ -88,6 +88,14 @@ Hairline width, focus ring and motion are single global values under
 `border`, `focus` and `motion`. The contrast gate holds the new roles to AA.
 The orange is a mark, not a ground for text: `brand-foreground` on `brand`
 measures 4.13, so use it for indicators and never behind body copy.
+`--brand` is for marks and fills; `--brand-text` is for text. `brand-text` is
+the accent's hue at a lightness that reads at AA on background, card and
+muted in both Hologram themes, where the accent itself does not (3.71 on
+paper). Paper `destructive` and `ring` are likewise set for contrast: text
+reds at 4.5 or more, the focus ring at 3 or more against every ground it
+sits on. The css generator's `--check` measures every foreground and
+background pair the components use in both Hologram themes and fails below
+those floors.
 
 
 ## Typography

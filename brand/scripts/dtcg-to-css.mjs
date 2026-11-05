@@ -135,4 +135,75 @@ if (process.argv.includes("--check")) {
     process.exit(1);
   }
   console.log(`check: ${total}/${total} color vars round-trip exactly (light+dark vs shadcn registry)`);
+  verifyComponentContrast();
+}
+
+// Component contrast gate: every foreground/background pair a component
+// paints in the Hologram sets, measured with the WCAG 2.x relative-luminance
+// formula. Text needs 4.5:1 (SC 1.4.3); focus rings need 3:1 against the
+// grounds they sit on (SC 1.4.11). Translucent colours are flattened over
+// the set's background first.
+function verifyComponentContrast() {
+  const TEXT = 4.5, NON_TEXT = 3.0;
+  const PAIRS = [
+    // [foreground, [grounds], minimum]
+    ["foreground", ["background", "card", "muted"], TEXT],
+    ["card-foreground", ["card"], TEXT],
+    ["popover-foreground", ["popover"], TEXT],
+    ["muted-foreground", ["background", "card", "muted"], TEXT],
+    ["primary-foreground", ["primary"], TEXT],
+    ["secondary-foreground", ["secondary"], TEXT],
+    ["accent-foreground", ["accent"], TEXT],
+    ["destructive", ["background", "card", "destructive-subtle"], TEXT],
+    ["destructive-foreground", ["destructive"], TEXT],
+    ["brand-text", ["background", "card", "muted"], TEXT],
+    ["sidebar-foreground", ["sidebar"], TEXT],
+    ["sidebar-accent-foreground", ["sidebar-accent"], TEXT],
+    ["ring", ["background", "card"], NON_TEXT],
+    ["sidebar-ring", ["sidebar"], NON_TEXT],
+    // The orange is a mark and a fill, never a ground for body text. The
+    // brand colour is fixed, so white on it (4.13) is held to the large-text
+    // and non-text floor, not AA body text. Text in the brand colour uses
+    // brand-text, which the TEXT row above holds to 4.5.
+    ["brand-foreground", ["brand"], NON_TEXT],
+    ["sidebar-primary-foreground", ["sidebar-primary"], NON_TEXT],
+  ];
+  const lum = (hex) => {
+    const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const ratio = (a, b) => {
+    const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+  };
+  const flat = (top, under) => {
+    if (top.length !== 9) return top;
+    const a = parseInt(top.slice(7, 9), 16) / 255;
+    const ch = (hex, i) => parseInt(hex.slice(i, i + 2), 16);
+    return "#" + [1, 3, 5].map((i) =>
+      Math.round(ch(top, i) * a + ch(under, i) * (1 - a)).toString(16).padStart(2, "0")).join("");
+  };
+  const failures = [];
+  let total = 0;
+  for (const setName of ["hologram-light", "hologram-dark"]) {
+    const c = cssVarsOf(setName);
+    const solid = (role) => flat(c[role], c.background);
+    for (const [fg, grounds, min] of PAIRS)
+      for (const ground of grounds) {
+        total++;
+        if (!c[fg] || !c[ground]) {
+          failures.push(`${setName}/${fg} on ${ground}: missing token`);
+          continue;
+        }
+        const r = ratio(solid(fg), solid(ground));
+        if (r < min)
+          failures.push(`${setName}/${fg} ${c[fg]} on ${ground} ${solid(ground)}: ${r.toFixed(2)} < ${min}`);
+      }
+  }
+  if (failures.length) {
+    console.error("COMPONENT CONTRAST FAILED:\n" + failures.join("\n"));
+    process.exit(1);
+  }
+  console.log(`check: ${total}/${total} component contrast pairs pass (text 4.5, ring 3.0; hologram-light+hologram-dark)`);
 }

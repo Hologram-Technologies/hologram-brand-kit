@@ -827,6 +827,10 @@
         "$type": "color",
         "$value": "#ffffff"
       },
+      "brand-text": {
+        "$type": "color",
+        "$value": "#f6613e"
+      },
       "destructive": {
         "$type": "color",
         "$value": "#ff6467"
@@ -1070,9 +1074,13 @@
         "$type": "color",
         "$value": "#ffffff"
       },
+      "brand-text": {
+        "$type": "color",
+        "$value": "#bf3100"
+      },
       "destructive": {
         "$type": "color",
-        "$value": "#e7000b"
+        "$value": "#c10007"
       },
       "success": {
         "$type": "color",
@@ -1096,7 +1104,7 @@
       },
       "ring": {
         "$type": "color",
-        "$value": "#a8a399"
+        "$value": "#6b6660"
       },
       "chart-1": {
         "$type": "color",
@@ -1148,7 +1156,7 @@
       },
       "sidebar-ring": {
         "$type": "color",
-        "$value": "#a8a399"
+        "$value": "#6b6660"
       },
       "warning": {
         "$type": "color",
@@ -1176,11 +1184,11 @@
       },
       "destructive-subtle": {
         "$type": "color",
-        "$value": "#fcdbdd"
+        "$value": "#f6dbdc"
       },
       "destructive-border": {
         "$type": "color",
-        "$value": "#f5999d"
+        "$value": "#e6999c"
       },
       "warning-subtle": {
         "$type": "color",

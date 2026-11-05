@@ -82,6 +82,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
+  --color-brand-text: var(--brand-text);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: #ffffff;
   --color-border: var(--border);
